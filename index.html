@@ -6,7 +6,7 @@
 <title>Travel Backlog</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0KgSr4DkCBWkXhLREQrtSzOdO_DfNv7M&loading=async&libraries=places" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0KgSr4DkCBWkXhLREQrtSzOdO_DfNv7M&libraries=places&callback=initGooglePlaces" async defer></script>
 <style>
   :root {
     --sand: #F5EFE6;
@@ -2201,14 +2201,21 @@ async function initGooglePlaces() {
   try {
     await google.maps.importLibrary('places');
     googleReady = true;
+    console.log('[Maps] Google Places ready ✓');
   } catch(e) {
-    console.warn('Google Places failed to load:', e);
+    console.warn('[Maps] Google Places failed to load:', e);
   }
 }
+// Called by the script tag callback
 window.initGooglePlaces = initGooglePlaces;
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof google !== 'undefined' && google.maps) initGooglePlaces();
-});
+// Also poll as a fallback in case callback fires before this script runs
+(function pollForGoogle() {
+  if (typeof google !== 'undefined' && google.maps && google.maps.importLibrary) {
+    initGooglePlaces();
+  } else {
+    setTimeout(pollForGoogle, 200);
+  }
+})();
 
 function onDestFocus() {
   const val = document.getElementById('dest-input').value.trim();
