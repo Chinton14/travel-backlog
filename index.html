@@ -2792,6 +2792,9 @@ const REGION_TOTALS = { US: 50, CA: 13, AU: 8 };
 const REGION_LABELS = { US: '🇺🇸 United States', CA: '🇨🇦 Canada', AU: '🇦🇺 Australia' };
 const REGION_UNIT   = { US: 'states', CA: 'provinces/territories', AU: 'states/territories' };
 
+// Cache for region GeoJSON — keyed by country code
+const regionGeoCache = {};
+
 async function renderRegions(jenEntries, chrisEntries) {
   const wrap = document.getElementById('stats-regions-wrap');
 
@@ -2827,30 +2830,48 @@ async function renderRegions(jenEntries, chrisEntries) {
     return;
   }
 
-  wrap.innerHTML = '<div class="empty-state"><div class="es-icon" style="animation:spin 0.7s linear infinite;display:inline-block;">⟳</div> Loading maps…</div>';
-
   const visited = { US:[jenUS,chrisUS,jenUSTog,chrisUSTog], CA:[jenCA,chrisCA,jenCATog,chrisCATog], AU:[jenAU,chrisAU,jenAUTog,chrisAUTog] };
-  let html = '';
 
+  // Fetch any uncached GeoJSON first (show spinner only on first load)
+  const uncached = needed.filter(c => !regionGeoCache[c]);
+  if (uncached.length > 0) {
+    wrap.innerHTML = '<div class="empty-state"><div class="es-icon" style="animation:spin 0.7s linear infinite;display:inline-block;">⟳</div> Loading maps…</div>';
+    await Promise.all(uncached.map(async code => {
+      try {
+        const resp = await fetch(REGION_GEOJSON_URLS[code]);
+        regionGeoCache[code] = await resp.json();
+      } catch(e) { regionGeoCache[code] = null; }
+    }));
+  }
+
+  // Now build HTML entirely from cache — no flicker
+  let html = '';
   for (const code of needed) {
-    try {
-      const resp = await fetch(REGION_GEOJSON_URLS[code]);
-      const geo  = await resp.json();
-      const [jenV, chrisV, togJ, togC] = visited[code];
-      const allV  = new Set([...jenV, ...chrisV]);
-      const total = REGION_TOTALS[code];
-      const unit  = REGION_UNIT[code];
-      html += `<div class="region-map-wrap">
-        <div class="region-map-title">
-          <span>${REGION_LABELS[code]}</span>
-          <span class="region-map-count">${allV.size} of ${total} ${unit} visited</span>
-        </div>
-        ${buildGeoSVG(geo, jenV, chrisV, 760, 480, code, togJ, togC, filter)}
-        ${REGION_LEGEND}
-      </div>`;
-    } catch(e) {
+    const geo = regionGeoCache[code];
+    if (!geo) {
       html += `<div class="region-map-wrap"><div class="empty-state"><div class="es-icon">⚠</div>Could not load ${REGION_LABELS[code]} map</div></div>`;
+      continue;
     }
+    const [jenV, chrisV, togJ, togC] = visited[code];
+    const total = REGION_TOTALS[code];
+    const unit  = REGION_UNIT[code];
+
+    // Count for the label: if filter active show that person's count, else combined
+    const displayCount = filter === 'jen'   ? jenV.size
+                       : filter === 'chris' ? chrisV.size
+                       : new Set([...jenV, ...chrisV]).size;
+    const filterLabel  = filter === 'jen'   ? ' (✨ Jen)'
+                       : filter === 'chris' ? ' (🌍 Chris)'
+                       : '';
+
+    html += `<div class="region-map-wrap">
+      <div class="region-map-title">
+        <span>${REGION_LABELS[code]}${filterLabel}</span>
+        <span class="region-map-count">${displayCount} of ${total} ${unit} visited</span>
+      </div>
+      ${buildGeoSVG(geo, jenV, chrisV, 760, 480, code, togJ, togC, filter)}
+      ${REGION_LEGEND}
+    </div>`;
   }
 
   wrap.innerHTML = html;
