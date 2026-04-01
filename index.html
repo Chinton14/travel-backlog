@@ -464,6 +464,222 @@
   .re-likedit   { background: rgba(74,138,111,0.12);  color: var(--want); }
   .re-lovedit   { background: rgba(196,118,58,0.12);  color: var(--really); }
 
+  /* ===== PLANNING ===== */
+  .planning-outer {
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    display: flex; gap: 0; width: 100%;
+    padding-bottom: 24px;
+  }
+  .planning-year-panel {
+    min-width: 100%; scroll-snap-align: start; flex-shrink: 0;
+    padding: 0 24px;
+  }
+  .planning-year-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 36px 0 20px;
+  }
+  .planning-year-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+  }
+  .planning-year-actions { display: flex; gap: 10px; align-items: center; }
+  .planning-add-year-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); color: white; border: none;
+    font-size: 1.3rem; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  .planning-add-year-btn:hover { background: #B3672F; transform: scale(1.1); }
+
+  /* Allowance bar */
+  .allowance-bar {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin-bottom: 24px;
+  }
+  .allowance-card {
+    background: var(--card-bg); border-radius: 14px;
+    padding: 16px 20px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .allowance-header {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .allowance-name { font-size: 0.88rem; font-weight: 500; }
+  .allowance-edit-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 0.8rem; color: var(--ink-light); padding: 0;
+  }
+  .allowance-edit-btn:hover { color: var(--accent); }
+  .allowance-numbers {
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  .allowance-used {
+    font-family: 'Playfair Display', serif; font-size: 1.8rem; line-height: 1;
+  }
+  .allowance-sep { color: var(--ink-light); font-size: 1rem; }
+  .allowance-total { font-size: 1rem; color: var(--ink-light); }
+  .allowance-progress {
+    height: 6px; background: var(--sand-dark); border-radius: 3px; overflow: hidden;
+  }
+  .allowance-progress-bar {
+    height: 100%; border-radius: 3px; transition: width 0.4s ease;
+  }
+  .allowance-remaining {
+    font-size: 0.78rem; color: var(--ink-light);
+  }
+  .allowance-over { color: #c62828; }
+
+  /* Calendar grid */
+  .planning-grid {
+    background: var(--card-bg); border-radius: 18px;
+    box-shadow: var(--shadow); overflow: hidden; margin-bottom: 24px;
+  }
+  .planning-grid-header {
+    display: grid;
+    grid-template-columns: 110px 1fr 90px 90px;
+    background: var(--ink); color: white;
+    padding: 12px 16px; gap: 12px;
+  }
+  .planning-grid-header span {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .planning-grid-header .col-days { text-align: center; }
+
+  .planning-month-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 90px 90px;
+    border-bottom: 1px solid var(--sand);
+    min-height: 52px; gap: 12px;
+    transition: background 0.15s;
+  }
+  .planning-month-row:last-child { border-bottom: none; }
+  .planning-month-row.drag-over { background: rgba(196,118,58,0.08); }
+
+  .planning-month-label {
+    padding: 14px 16px;
+    font-size: 0.88rem; font-weight: 500; color: var(--ink-light);
+    display: flex; align-items: flex-start; padding-top: 16px;
+    flex-shrink: 0;
+  }
+  .planning-month-label.current-month { color: var(--accent); font-weight: 600; }
+
+  .planning-entries-col {
+    padding: 10px 0; display: flex; flex-wrap: wrap;
+    gap: 6px; align-items: flex-start; align-content: flex-start;
+    min-height: 52px;
+  }
+  .planning-days-col {
+    padding: 10px 8px; text-align: center;
+    display: flex; flex-direction: column; gap: 4px;
+    align-items: center; justify-content: flex-start;
+    font-size: 0.85rem;
+  }
+  .planning-day-total {
+    font-weight: 500; color: var(--ink);
+  }
+
+  /* Entry pills */
+  .planning-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 10px 5px 12px;
+    border-radius: 100px; font-size: 0.8rem; font-weight: 500;
+    cursor: grab; user-select: none;
+    background: var(--accent); color: white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    transition: transform 0.15s, box-shadow 0.15s;
+    max-width: 200px;
+  }
+  .planning-pill:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  .planning-pill.dragging { opacity: 0.5; cursor: grabbing; }
+  .planning-pill-name {
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 120px;
+  }
+  .planning-pill-actions { display: flex; gap: 2px; }
+  .planning-pill-btn {
+    background: rgba(255,255,255,0.25); border: none; border-radius: 50%;
+    width: 18px; height: 18px; cursor: pointer; color: white;
+    font-size: 0.65rem; display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s; flex-shrink: 0;
+  }
+  .planning-pill-btn:hover { background: rgba(255,255,255,0.4); }
+
+  /* Add entry button */
+  .planning-add-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px 10px; border-radius: 100px;
+    border: 1.5px dashed var(--sand-dark); background: transparent;
+    font-size: 0.78rem; color: var(--ink-light); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .planning-add-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Unplanned section */
+  .planning-unplanned {
+    background: var(--card-bg); border-radius: 18px;
+    box-shadow: var(--shadow); overflow: hidden; margin-bottom: 32px;
+  }
+  .planning-unplanned-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; border-bottom: 1px solid var(--sand);
+  }
+  .planning-unplanned-header h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.1rem;
+  }
+  .planning-unplanned-body {
+    padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 8px;
+    min-height: 60px;
+  }
+  .planning-unplanned-body.drag-over { background: rgba(196,118,58,0.08); }
+  .planning-unplanned-body .planning-pill { background: var(--ink-light); }
+
+  /* Planning modal */
+  .planning-modal-overlay {
+    position: fixed; inset: 0; background: rgba(26,23,20,0.5);
+    z-index: 600; display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .planning-modal-overlay.hidden { display: none; }
+  .planning-modal {
+    background: var(--card-bg); border-radius: 18px;
+    padding: 28px; box-shadow: var(--shadow-lg);
+    width: 100%; max-width: 380px;
+  }
+  .planning-modal h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 18px;
+  }
+  .planning-modal .field { margin-bottom: 16px; }
+  .planning-modal input[type="text"],
+  .planning-modal input[type="number"] {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid var(--sand-dark); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    background: var(--sand); color: var(--ink); outline: none;
+    transition: border-color 0.2s;
+  }
+  .planning-modal input:focus { border-color: var(--accent); background: white; }
+  .planning-days-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .planning-modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+  .planning-modal-btn {
+    flex: 1; padding: 12px; border-radius: 10px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 500;
+    transition: all 0.2s; border: none;
+  }
+  .pmb-primary { background: var(--accent); color: white; }
+  .pmb-primary:hover { background: #B3672F; }
+  .pmb-secondary { background: var(--sand); color: var(--ink); border: 1.5px solid var(--sand-dark); }
+  .pmb-secondary:hover { border-color: var(--ink); }
+
+  /* Year navigation dots */
+  .year-nav { display: flex; gap: 8px; align-items: center; }
+  .year-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--sand-dark); cursor: pointer; transition: all 0.2s;
+    border: none;
+  }
+  .year-dot.active { background: var(--accent); transform: scale(1.3); }
+
   /* "Both been separately" map colour */
   /* coral/terracotta — distinct from both/jen/chris */
 
@@ -604,6 +820,7 @@
       <button class="nav-btn active" onclick="showScreen('add')">Add Destination</button>
       <button class="nav-btn" onclick="goToRankings()">Want to Go</button>
       <button class="nav-btn" onclick="goToBeen()">Been There</button>
+      <button class="nav-btn" onclick="goToPlanning()">Planning</button>
     </div>
   </div>
 </header>
@@ -1025,6 +1242,66 @@
     <div class="modal-actions">
       <button class="modal-btn modal-btn-secondary" onclick="closeEditModal()">Cancel</button>
       <button class="modal-btn modal-btn-primary" onclick="saveEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PLANNING SCREEN ===== -->
+<div class="screen" id="screen-planning">
+  <div class="planning-outer" id="planning-outer">
+    <!-- Year panels injected by JS -->
+  </div>
+</div>
+
+<!-- ===== PLANNING ENTRY MODAL ===== -->
+<div class="planning-modal-overlay hidden" id="planning-modal">
+  <div class="planning-modal">
+    <h3 id="planning-modal-title">Add Entry</h3>
+    <div class="field">
+      <label>Trip / Event</label>
+      <input type="text" id="pm-title" placeholder="e.g. Barcelona, NC500, Wedding…" />
+    </div>
+    <div class="field">
+      <label>Days Leave Needed</label>
+      <div class="planning-days-row">
+        <div>
+          <label style="margin-bottom:4px;">🌍 Chris</label>
+          <input type="number" id="pm-chris" min="0" max="365" step="0.5" value="0" placeholder="0" />
+        </div>
+        <div>
+          <label style="margin-bottom:4px;">✨ Jen</label>
+          <input type="number" id="pm-jen" min="0" max="365" step="0.5" value="0" placeholder="0" />
+        </div>
+      </div>
+    </div>
+    <div class="planning-modal-actions">
+      <button class="planning-modal-btn pmb-secondary" onclick="closePlanningModal()">Cancel</button>
+      <button class="planning-modal-btn pmb-primary" onclick="savePlanningEntry()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ALLOWANCE EDIT MODAL ===== -->
+<div class="planning-modal-overlay hidden" id="allowance-modal">
+  <div class="planning-modal">
+    <h3>Set Annual Leave</h3>
+    <div class="field">
+      <label>Year</label>
+      <input type="number" id="am-year" readonly style="opacity:0.6;" />
+    </div>
+    <div class="planning-days-row">
+      <div class="field">
+        <label>🌍 Chris (days)</label>
+        <input type="number" id="am-chris" min="1" max="365" />
+      </div>
+      <div class="field">
+        <label>✨ Jen (days)</label>
+        <input type="number" id="am-jen" min="1" max="365" />
+      </div>
+    </div>
+    <div class="planning-modal-actions">
+      <button class="planning-modal-btn pmb-secondary" onclick="closeAllowanceModal()">Cancel</button>
+      <button class="planning-modal-btn pmb-primary" onclick="saveAllowance()">Save</button>
     </div>
   </div>
 </div>
@@ -3031,6 +3308,388 @@ function drawMap(geoJson, jenSet, chrisSet, container, jenTog, chrisTog, filterP
 }
 
 // ============================================================
+// PLANNING
+// ============================================================
+const PLAN_TABLE = 'planning';
+const PLAN_CFG_TABLE = 'planning_config';
+const MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+
+let planningYears = [new Date().getFullYear()]; // start with current year
+let planningEntries = []; // [{id, year, month, title, chris_days, jen_days, sort_order}]
+let planningConfig  = {}; // {year: {chris_allowance, jen_allowance}}
+let planningModal   = { mode: null, id: null, year: null, month: null };
+
+// ── Supabase helpers ──
+async function loadPlanning() {
+  try {
+    const [entries, configs] = await Promise.all([
+      sbFetch('GET', PLAN_TABLE + '?select=*&order=year,month,sort_order'),
+      sbFetch('GET', PLAN_CFG_TABLE + '?select=*'),
+    ]);
+    planningEntries = entries || [];
+    planningConfig  = {};
+    (configs || []).forEach(c => {
+      planningConfig[c.year] = { chris_allowance: c.chris_allowance, jen_allowance: c.jen_allowance };
+    });
+    // Add any years found in entries to the year list
+    planningEntries.forEach(e => {
+      if (!planningYears.includes(e.year)) planningYears.push(e.year);
+    });
+    planningYears.sort((a,b) => a-b);
+  } catch(e) { console.warn('Planning load failed:', e); }
+}
+
+async function savePlanningRow(row) {
+  const url = SUPABASE_URL + '/rest/v1/' + PLAN_TABLE + (row.id ? '?id=eq.' + row.id : '');
+  const method = row.id ? 'PATCH' : 'POST';
+  const res = await fetch(url, {
+    method,
+    headers: {
+      'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': row.id ? 'return=representation' : 'return=representation',
+    },
+    body: JSON.stringify({ ...row, updated_at: new Date().toISOString() })
+  });
+  if (!res.ok) throw new Error(await res.text());
+  const data = await res.json();
+  return Array.isArray(data) ? data[0] : data;
+}
+
+async function deletePlanningRow(id) {
+  await sbDelete(PLAN_TABLE + '?id=eq.' + id);
+}
+
+async function savePlanningConfig(year, chrisAllowance, jenAllowance) {
+  const url = SUPABASE_URL + '/rest/v1/' + PLAN_CFG_TABLE + '?on_conflict=year';
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates,return=minimal',
+    },
+    body: JSON.stringify({ year, chris_allowance: chrisAllowance, jen_allowance: jenAllowance, updated_at: new Date().toISOString() })
+  });
+  if (!res.ok) throw new Error(await res.text());
+}
+
+// ── Navigation ──
+function goToPlanning() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-planning').classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-btn')[3].classList.add('active');
+  renderPlanning();
+}
+
+// ── Render ──
+function renderPlanning() {
+  const outer = document.getElementById('planning-outer');
+  outer.innerHTML = planningYears.map(year => renderYearPanel(year)).join('');
+  // Add + year button at the end
+  outer.innerHTML += `<div class="planning-year-panel" style="min-width:80px;display:flex;align-items:flex-start;padding-top:52px;">
+    <button class="planning-add-year-btn" onclick="addPlanningYear()" title="Add next year" style="width:48px;height:48px;font-size:1.6rem;">+</button>
+  </div>`;
+  attachDragListeners();
+}
+
+function renderYearPanel(year) {
+  const cfg = planningConfig[year] || { chris_allowance: 25, jen_allowance: 25 };
+  const yearEntries = planningEntries.filter(e => e.year === year);
+
+  // Calculate used days
+  const chrisUsed = yearEntries.reduce((s, e) => s + (parseFloat(e.chris_days) || 0), 0);
+  const jenUsed   = yearEntries.reduce((s, e) => s + (parseFloat(e.jen_days)   || 0), 0);
+  const chrisPct  = Math.min(100, (chrisUsed / cfg.chris_allowance) * 100);
+  const jenPct    = Math.min(100, (jenUsed   / cfg.jen_allowance)   * 100);
+  const chrisOver = chrisUsed > cfg.chris_allowance;
+  const jenOver   = jenUsed   > cfg.jen_allowance;
+
+  const now = new Date();
+  const currentMonth = now.getMonth() + 1;
+  const currentYear  = now.getFullYear();
+
+  // Month rows
+  const monthRows = MONTHS.map((name, i) => {
+    const month = i + 1;
+    const entries = yearEntries.filter(e => e.month === month)
+      .sort((a,b) => (a.sort_order||0) - (b.sort_order||0));
+    const chrisDays = entries.reduce((s,e) => s + (parseFloat(e.chris_days)||0), 0);
+    const jenDays   = entries.reduce((s,e) => s + (parseFloat(e.jen_days)||0), 0);
+    const isCurrent = year === currentYear && month === currentMonth;
+
+    return `<div class="planning-month-row" data-year="${year}" data-month="${month}"
+        ondragover="onDragOver(event)" ondrop="onDrop(event,${year},${month})" ondragleave="onDragLeave(event)">
+      <div class="planning-month-label${isCurrent ? ' current-month' : ''}">${name}</div>
+      <div class="planning-entries-col" data-year="${year}" data-month="${month}">
+        ${entries.map(e => renderPill(e)).join('')}
+        <button class="planning-add-btn" onclick="openPlanningModal(${year},${month},null)">+ Add</button>
+      </div>
+      <div class="planning-days-col">
+        ${chrisDays > 0 ? `<span class="planning-day-total">${chrisDays}</span>` : '<span style="color:var(--sand-dark)">—</span>'}
+      </div>
+      <div class="planning-days-col">
+        ${jenDays > 0 ? `<span class="planning-day-total">${jenDays}</span>` : '<span style="color:var(--sand-dark)">—</span>'}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Unplanned entries (month === null)
+  const unplanned = yearEntries.filter(e => e.month === null || e.month === 0)
+    .sort((a,b) => (a.sort_order||0) - (b.sort_order||0));
+
+  return `<div class="planning-year-panel" id="year-panel-${year}">
+    <div class="planning-year-header">
+      <span class="planning-year-title">${year}</span>
+      <div class="planning-year-actions">
+        <div class="year-nav" id="year-nav-${year}"></div>
+      </div>
+    </div>
+
+    <!-- Allowance bars -->
+    <div class="allowance-bar">
+      <div class="allowance-card">
+        <div class="allowance-header">
+          <span class="allowance-name">🌍 Chris</span>
+          <button class="allowance-edit-btn" onclick="openAllowanceModal(${year})">✏️ Edit</button>
+        </div>
+        <div class="allowance-numbers">
+          <span class="allowance-used${chrisOver ? ' allowance-over' : ''}">${chrisUsed}</span>
+          <span class="allowance-sep">/</span>
+          <span class="allowance-total">${cfg.chris_allowance} days</span>
+        </div>
+        <div class="allowance-progress">
+          <div class="allowance-progress-bar" style="width:${chrisPct}%;background:${chrisOver ? '#c62828' : 'var(--chris)'};"></div>
+        </div>
+        <div class="allowance-remaining${chrisOver ? ' allowance-over' : ''}">
+          ${chrisOver ? `${(chrisUsed - cfg.chris_allowance).toFixed(1)} days over` : `${(cfg.chris_allowance - chrisUsed).toFixed(1)} days remaining`}
+        </div>
+      </div>
+      <div class="allowance-card">
+        <div class="allowance-header">
+          <span class="allowance-name">✨ Jen</span>
+          <button class="allowance-edit-btn" onclick="openAllowanceModal(${year})">✏️ Edit</button>
+        </div>
+        <div class="allowance-numbers">
+          <span class="allowance-used${jenOver ? ' allowance-over' : ''}">${jenUsed}</span>
+          <span class="allowance-sep">/</span>
+          <span class="allowance-total">${cfg.jen_allowance} days</span>
+        </div>
+        <div class="allowance-progress">
+          <div class="allowance-progress-bar" style="width:${jenPct}%;background:${jenOver ? '#c62828' : 'var(--jen)'};"></div>
+        </div>
+        <div class="allowance-remaining${jenOver ? ' allowance-over' : ''}">
+          ${jenOver ? `${(jenUsed - cfg.jen_allowance).toFixed(1)} days over` : `${(cfg.jen_allowance - jenUsed).toFixed(1)} days remaining`}
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="planning-grid">
+      <div class="planning-grid-header">
+        <span>Month</span>
+        <span>Trip / Event</span>
+        <span class="col-days">🌍 Days</span>
+        <span class="col-days">✨ Days</span>
+      </div>
+      ${monthRows}
+    </div>
+
+    <!-- Unplanned -->
+    <div class="planning-unplanned">
+      <div class="planning-unplanned-header">
+        <h3>📋 Unplanned</h3>
+        <button class="planning-add-btn" onclick="openPlanningModal(${year},null,null)">+ Add</button>
+      </div>
+      <div class="planning-unplanned-body" data-year="${year}" data-month="0"
+           ondragover="onDragOver(event)" ondrop="onDrop(event,${year},0)" ondragleave="onDragLeave(event)">
+        ${unplanned.map(e => renderPill(e, true)).join('')}
+        ${unplanned.length === 0 ? '<span style="font-size:0.85rem;color:var(--ink-light);font-weight:300;">Drag items here or use + Add to add unplanned events</span>' : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderPill(entry, dark) {
+  const safe = entry.title.replace(/'/g, "\'").replace(/"/g, '&quot;');
+  const days = [];
+  if (entry.chris_days > 0) days.push(`C:${entry.chris_days}`);
+  if (entry.jen_days   > 0) days.push(`J:${entry.jen_days}`);
+  const dayStr = days.length ? ` <span style="opacity:0.75;font-size:0.72rem;">(${days.join(' ')})</span>` : '';
+  return `<div class="planning-pill${dark?' dark-pill':''}" draggable="true"
+    data-id="${entry.id}" data-year="${entry.year}" data-month="${entry.month||0}"
+    ondragstart="onDragStart(event,'${entry.id}')"
+    ondragend="onDragEnd(event)">
+    <span class="planning-pill-name" title="${safe}">${entry.title}</span>${dayStr}
+    <div class="planning-pill-actions">
+      <button class="planning-pill-btn" onclick="openPlanningModal(${entry.year},${entry.month||0},'${entry.id}')" title="Edit">✏</button>
+      <button class="planning-pill-btn" onclick="deletePlanningEntry('${entry.id}')" title="Delete">×</button>
+    </div>
+  </div>`;
+}
+
+// ── Modal ──
+function openPlanningModal(year, month, id) {
+  planningModal = { mode: id ? 'edit' : 'add', id, year, month };
+  const entry = id ? planningEntries.find(e => e.id === id) : null;
+  document.getElementById('planning-modal-title').textContent = id ? 'Edit Entry' : 'Add Entry';
+  document.getElementById('pm-title').value   = entry ? entry.title      : '';
+  document.getElementById('pm-chris').value   = entry ? entry.chris_days : 0;
+  document.getElementById('pm-jen').value     = entry ? entry.jen_days   : 0;
+  document.getElementById('planning-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('pm-title').focus(), 100);
+}
+
+function closePlanningModal() {
+  document.getElementById('planning-modal').classList.add('hidden');
+}
+
+async function savePlanningEntry() {
+  const title     = document.getElementById('pm-title').value.trim();
+  const chrisDays = parseFloat(document.getElementById('pm-chris').value) || 0;
+  const jenDays   = parseFloat(document.getElementById('pm-jen').value)   || 0;
+  if (!title) { toastMsg('Please enter a name', true); return; }
+
+  const { mode, id, year, month } = planningModal;
+  closePlanningModal();
+  setSyncState('busy', 'saving…');
+
+  try {
+    if (mode === 'edit') {
+      const existing = planningEntries.find(e => e.id === id);
+      const updated  = { ...existing, title, chris_days: chrisDays, jen_days: jenDays };
+      const saved    = await savePlanningRow(updated);
+      const idx      = planningEntries.findIndex(e => e.id === id);
+      if (idx >= 0) planningEntries[idx] = saved || updated;
+    } else {
+      const maxOrder = planningEntries.filter(e => e.year === year && (e.month||0) === (month||0))
+        .reduce((m, e) => Math.max(m, e.sort_order||0), 0);
+      const row = { year, month: month||null, title, chris_days: chrisDays, jen_days: jenDays, sort_order: maxOrder + 1 };
+      const saved = await savePlanningRow(row);
+      if (saved) planningEntries.push(saved);
+    }
+    setSyncState('ok', 'saved');
+    renderPlanning();
+  } catch(e) {
+    setSyncState('err', 'save failed');
+    toastMsg('Save failed: ' + e.message.slice(0, 80), true);
+  }
+}
+
+async function deletePlanningEntry(id) {
+  if (!confirm('Remove this entry?')) return;
+  const idx = planningEntries.findIndex(e => e.id === id);
+  if (idx >= 0) planningEntries.splice(idx, 1);
+  renderPlanning();
+  try { await deletePlanningRow(id); setSyncState('ok', 'saved'); }
+  catch(e) { toastMsg('Delete failed', true); }
+}
+
+// ── Allowance modal ──
+function openAllowanceModal(year) {
+  const cfg = planningConfig[year] || { chris_allowance: 25, jen_allowance: 25 };
+  document.getElementById('am-year').value  = year;
+  document.getElementById('am-chris').value = cfg.chris_allowance;
+  document.getElementById('am-jen').value   = cfg.jen_allowance;
+  document.getElementById('allowance-modal').classList.remove('hidden');
+}
+function closeAllowanceModal() {
+  document.getElementById('allowance-modal').classList.add('hidden');
+}
+async function saveAllowance() {
+  const year  = parseInt(document.getElementById('am-year').value);
+  const chris = parseFloat(document.getElementById('am-chris').value) || 25;
+  const jen   = parseFloat(document.getElementById('am-jen').value)   || 25;
+  closeAllowanceModal();
+  planningConfig[year] = { chris_allowance: chris, jen_allowance: jen };
+  renderPlanning();
+  try { await savePlanningConfig(year, chris, jen); setSyncState('ok', 'saved'); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+// ── Add year ──
+function addPlanningYear() {
+  const next = planningYears[planningYears.length - 1] + 1;
+  if (!planningYears.includes(next)) {
+    planningYears.push(next);
+    renderPlanning();
+    // Scroll to new year
+    setTimeout(() => {
+      const panel = document.getElementById('year-panel-' + next);
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }, 100);
+  }
+}
+
+// ── Drag and Drop ──
+let dragId = null;
+
+function onDragStart(e, id) {
+  dragId = id;
+  e.dataTransfer.effectAllowed = 'move';
+  e.currentTarget.classList.add('dragging');
+}
+function onDragEnd(e) {
+  e.currentTarget.classList.remove('dragging');
+  document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+}
+function onDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  e.currentTarget.classList.add('drag-over');
+}
+function onDragLeave(e) {
+  e.currentTarget.classList.remove('drag-over');
+}
+async function onDrop(e, year, month) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (!dragId) return;
+
+  const entry = planningEntries.find(en => en.id === dragId);
+  if (!entry) return;
+
+  // Don't do anything if dropped in same place
+  if (entry.year === year && (entry.month||0) === month) return;
+
+  const maxOrder = planningEntries
+    .filter(en => en.year === year && (en.month||0) === month)
+    .reduce((m, en) => Math.max(m, en.sort_order||0), 0);
+
+  entry.year       = year;
+  entry.month      = month === 0 ? null : month;
+  entry.sort_order = maxOrder + 1;
+
+  renderPlanning();
+  try {
+    await savePlanningRow(entry);
+    setSyncState('ok', 'saved');
+  } catch(err) {
+    toastMsg('Save failed', true);
+  }
+  dragId = null;
+}
+
+function attachDragListeners() {
+  // Pills already have listeners via inline handlers
+  // Nothing extra needed
+}
+
+// ── Enter key on modal ──
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    if (!document.getElementById('planning-modal').classList.contains('hidden')) savePlanningEntry();
+    if (!document.getElementById('allowance-modal').classList.contains('hidden')) saveAllowance();
+  }
+  if (e.key === 'Escape') {
+    closePlanningModal();
+    closeAllowanceModal();
+  }
+});
+
+// ============================================================
 // BOOT
 // ============================================================
 (async () => {
@@ -3040,6 +3699,7 @@ function drawMap(geoJson, jenSet, chrisSet, container, jenTog, chrisTog, filterP
     renderRankings();
     renderSuggestions();
   }
+  await loadPlanning();
 })();
 </script>
 </body>
