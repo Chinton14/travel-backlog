@@ -3317,7 +3317,7 @@ async function renderWorldMap(jenCountries, chrisCountries, jenEntries, chrisEnt
   if (!renderWorldMap._geoCache) {
     container.innerHTML = '<div class="empty-state"><div class="es-icon">🗺</div>Loading map data…</div>';
     try {
-      const resp = await fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson');
+      const resp = await fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json');
       renderWorldMap._geoCache = await resp.json();
     } catch(e) {
       container.innerHTML = '<div class="empty-state"><div class="es-icon">🗺</div>Could not load map data</div>';
@@ -3343,14 +3343,15 @@ function drawMap(geoJson, jenSet, chrisSet, container, jenTog, chrisTog, filterP
     ).join(' ');
   }
 
-  // Debug: find France and log its ISO_A2
-  const frFeat = geoJson.features.find(f => Object.values(f.properties||{}).some(v => v==='France' || v==='FR' || v==='FRA'));
-  if (frFeat) console.log('[WorldMap] France ISO_A2:', frFeat.properties.ISO_A2, '| NAME:', frFeat.properties.NAME || frFeat.properties.SOVEREIGNT);
+  // Debug: find France by id or name
+  const frFeat = geoJson.features.find(f => f.id === 'FR' || f.properties?.name === 'France');
+  console.log('[WorldMap] France:', frFeat ? 'found, id=' + frFeat.id : 'NOT FOUND', '| jenSet has FR:', jenSet.has('FR'));
 
   const paths = geoJson.features.map(f => {
     const props = f.properties;
-    // Natural Earth uses ISO_A2; fallback to other formats
-    const code  = (props.ISO_A2 && props.ISO_A2 !== '-99' ? props.ISO_A2 : null)
+    // johan/world.geo.json stores ISO code as feature.id
+    const code  = f.id
+               || (props.ISO_A2 && props.ISO_A2 !== '-99' ? props.ISO_A2 : null)
                || props['ISO3166-1-Alpha-2'] || props.iso_a2 || props.iso2 || '';
 
     let fill;
