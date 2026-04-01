@@ -3343,20 +3343,15 @@ function drawMap(geoJson, jenSet, chrisSet, container, jenTog, chrisTog, filterP
     ).join(' ');
   }
 
-  // Debug: log all unique property keys from first feature, and find France
-  const allKeys = Object.keys(geoJson.features[0]?.properties || {});
-  console.log('[WorldMap] Property keys:', allKeys);
-  // Try to find France by any means
-  const frFeat = geoJson.features.find(f => {
-    const p = f.properties;
-    return Object.values(p).some(v => v === 'FR' || v === 'FRA' || v === 'France');
-  });
-  if (frFeat) console.log('[WorldMap] France props:', frFeat.properties);
-  else console.log('[WorldMap] France not found in', geoJson.features.length, 'features');
+  // Debug: find France and log its ISO_A2
+  const frFeat = geoJson.features.find(f => Object.values(f.properties||{}).some(v => v==='France' || v==='FR' || v==='FRA'));
+  if (frFeat) console.log('[WorldMap] France ISO_A2:', frFeat.properties.ISO_A2, '| NAME:', frFeat.properties.NAME || frFeat.properties.SOVEREIGNT);
 
   const paths = geoJson.features.map(f => {
     const props = f.properties;
-    const code  = props.ISO_A2 || props['ISO3166-1-Alpha-2'] || props.iso_a2 || props.iso2 || '';
+    // Natural Earth uses ISO_A2; fallback to other formats
+    const code  = (props.ISO_A2 && props.ISO_A2 !== '-99' ? props.ISO_A2 : null)
+               || props['ISO3166-1-Alpha-2'] || props.iso_a2 || props.iso2 || '';
 
     let fill;
     if (filterPerson === 'jen') {
