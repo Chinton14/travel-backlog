@@ -2535,12 +2535,13 @@ async function initGooglePlaces() {
     console.warn('[Maps] Google Places failed to load:', e);
   }
 }
-// Called by the script tag callback
+// Called by the script tag callback — assign before polling starts
 window.initGooglePlaces = initGooglePlaces;
-// Also poll as a fallback in case callback fires before this script runs
+// Poll as fallback — guard against double-init with a flag
+let _googleInitStarted = false;
 (function pollForGoogle() {
   if (typeof google !== 'undefined' && google.maps && google.maps.importLibrary) {
-    initGooglePlaces();
+    if (!_googleInitStarted) { _googleInitStarted = true; initGooglePlaces(); }
   } else {
     setTimeout(pollForGoogle, 200);
   }
@@ -3371,7 +3372,7 @@ async function deletePlanningRow(id) {
 async function savePlanningConfig(year, chrisAllowance, jenAllowance) {
   // Check if a row already exists for this year
   const existing = await sbFetch('GET', PLAN_CFG_TABLE + '?year=eq.' + year + '&select=id');
-  const body = JSON.stringify({ year, chris_allowance: chrisAllowance, jen_allowance: jenAllowance, updated_at: new Date().toISOString() });
+  const body = JSON.stringify({ year, chris_allowance: chrisAllowance, jen_allowance: jenAllowance });
   let res;
   if (existing && existing.length > 0) {
     // PATCH existing row
