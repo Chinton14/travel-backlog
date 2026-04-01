@@ -2908,6 +2908,11 @@ async function renderStats() {
   await renderRegions(jenEntries, chrisEntries);
 
   // ── World Map ──
+  console.log('[Debug] jenCountries:', [...jenCountries]);
+  console.log('[Debug] chrisCountries:', [...chrisCountries]);
+  const _jenTog = new Set(jenEntries.filter(e => e.who === 'together').map(e => e.geo.countryCode));
+  const _chrisTog = new Set(chrisEntries.filter(e => e.who === 'together').map(e => e.geo.countryCode));
+  console.log('[Debug] jenTog:', [..._jenTog], 'chrisTog:', [..._chrisTog]);
   renderWorldMap(jenCountries, chrisCountries, jenEntries, chrisEntries);
 
   // ── Top 10 countries by visit count ──
@@ -3063,8 +3068,39 @@ function buildGeoSVG(geojson, jenSet, chrisSet, svgW, svgH, countryCode, jenTog,
   if (countryCode === 'US') {
     return buildUSSVG(features, jenSet, chrisSet, svgW, svgH, jenTog, chrisTog, filterPerson);
   }
+  // EU: match by ISO country code in GeoJSON properties
+  if (countryCode === 'EU') {
+    return buildEUSVG(features, jenSet, chrisSet, svgW, svgH, jenTog, chrisTog, filterPerson);
+  }
   const proj  = makeProjector(features, svgW, svgH, 12);
   const paths = featuresToPaths(features, proj, jenSet, chrisSet, jenTog, chrisTog, filterPerson);
+  return `<svg viewBox="0 0 ${svgW} ${svgH}" xmlns="http://www.w3.org/2000/svg"
+    style="background:#c8e6f7;border-radius:8px;">${paths}</svg>`;
+}
+
+function buildEUSVG(features, jenSet, chrisSet, svgW, svgH, jenTog, chrisTog, filterPerson) {
+  const proj  = makeProjector(features, svgW, svgH, 14);
+  if (features[0]) console.log('[EU Map] sample props:', features[0].properties);
+  const paths = features.map(f => {
+    const props = f.properties || {};
+    // EU GeoJSON uses ISO2 or similar — try multiple keys
+    const code = props.ISO2 || props.iso2 || props['ISO3166-1-Alpha-2'] || props.iso_a2 || props.ISO_A2 || '';
+    let fill;
+    if (filterPerson === 'jen') {
+      fill = jenSet.has(code) ? REGION_COLORS.jen : REGION_COLORS.none;
+    } else if (filterPerson === 'chris') {
+      fill = chrisSet.has(code) ? REGION_COLORS.chris : REGION_COLORS.none;
+    } else {
+      const jHas = jenSet.has(code), cHas = chrisSet.has(code);
+      if (jHas && cHas) {
+        fill = (jenTog?.has(code) || chrisTog?.has(code)) ? REGION_COLORS.together : REGION_COLORS.bothSeparately;
+      } else {
+        fill = jHas ? REGION_COLORS.jen : cHas ? REGION_COLORS.chris : REGION_COLORS.none;
+      }
+    }
+    const d = geoToPath(f.geometry, proj);
+    return `<path d="${d}" fill="${fill}" stroke="white" stroke-width="0.8" opacity="0.95"/>`;
+  }).join('');
   return `<svg viewBox="0 0 ${svgW} ${svgH}" xmlns="http://www.w3.org/2000/svg"
     style="background:#c8e6f7;border-radius:8px;">${paths}</svg>`;
 }
@@ -3121,12 +3157,21 @@ const REGION_GEOJSON_URLS = {
   US: 'https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json',
   CA: 'https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/canada.geojson',
   AU: 'https://raw.githubusercontent.com/tonywr71/GeoJson-Data/master/australian-states.min.geojson',
+  EU: 'https://raw.githubusercontent.com/leakyMirror/map-of-europe/master/GeoJSON/europe.geojson',
 };
 
 // Region count lookup (approximate)
-const REGION_TOTALS = { US: 50, CA: 13, AU: 8 };
-const REGION_LABELS = { US: '🇺🇸 United States', CA: '🇨🇦 Canada', AU: '🇦🇺 Australia' };
-const REGION_UNIT   = { US: 'states', CA: 'provinces/territories', AU: 'states/territories' };
+const REGION_TOTALS = { US: 50, CA: 13, AU: 8, EU: 44 };
+const REGION_LABELS = { US: '🇺🇸 United States', CA: '🇨🇦 Canada', AU: '🇦🇺 Australia', EU: '🌍 Europe' };
+const REGION_UNIT   = { US: 'states', CA: 'provinces/territories', AU: 'states/territories', EU: 'countries visited' };
+
+// European country codes
+const EU_COUNTRY_CODES = new Set([
+  'AL','AD','AT','BY','BE','BA','BG','HR','CY','CZ','DK','EE','FI','FR','DE',
+  'GR','HU','IS','IE','IT','XK','LV','LI','LT','LU','MT','MD','MC','ME','NL',
+  'MK','NO','PL','PT','RO','RU','SM','RS','SK','SI','ES','SE','CH','TR','UA',
+  'GB','VA'
+]);
 
 // Cache for region GeoJSON — keyed by country code
 const regionGeoCache = {};
@@ -3139,6 +3184,13 @@ async function renderRegions(jenEntries, chrisEntries) {
   );
   const getTogetherVisited = (entries, code) => new Set(
     entries.filter(e => e.geo.countryCode === code && e.geo.region && e.who === 'together').map(e => e.geo.region)
+  );
+  // For EU: visited = set of country codes in Europe that person has been to
+  const getEUVisited = (entries) => new Set(
+    entries.filter(e => EU_COUNTRY_CODES.has(e.geo.countryCode)).map(e => e.geo.countryCode)
+  );
+  const getEUTogetherVisited = (entries) => new Set(
+    entries.filter(e => EU_COUNTRY_CODES.has(e.geo.countryCode) && e.who === 'together').map(e => e.geo.countryCode)
   );
 
   const jenUS   = getVisited(jenEntries,   'US');
@@ -3153,12 +3205,20 @@ async function renderRegions(jenEntries, chrisEntries) {
   const chrisCATog = getTogetherVisited(chrisEntries, 'CA');
   const jenAUTog   = getTogetherVisited(jenEntries,   'AU');
   const chrisAUTog = getTogetherVisited(chrisEntries, 'AU');
+
+  // EU — country-level
+  const jenEU      = getEUVisited(jenEntries);
+  const chrisEU    = getEUVisited(chrisEntries);
+  const jenEUTog   = getEUTogetherVisited(jenEntries);
+  const chrisEUTog = getEUTogetherVisited(chrisEntries);
+
   const filter = mapFilter.region;
 
   const needed = [
     jenUS.size+chrisUS.size > 0 ? 'US' : null,
     jenCA.size+chrisCA.size > 0 ? 'CA' : null,
     jenAU.size+chrisAU.size > 0 ? 'AU' : null,
+    jenEU.size+chrisEU.size > 0 ? 'EU' : null,
   ].filter(Boolean);
 
   if (!needed.length) {
@@ -3166,7 +3226,7 @@ async function renderRegions(jenEntries, chrisEntries) {
     return;
   }
 
-  const visited = { US:[jenUS,chrisUS,jenUSTog,chrisUSTog], CA:[jenCA,chrisCA,jenCATog,chrisCATog], AU:[jenAU,chrisAU,jenAUTog,chrisAUTog] };
+  const visited = { US:[jenUS,chrisUS,jenUSTog,chrisUSTog], CA:[jenCA,chrisCA,jenCATog,chrisCATog], AU:[jenAU,chrisAU,jenAUTog,chrisAUTog], EU:[jenEU,chrisEU,jenEUTog,chrisEUTog] };
 
   // Fetch any uncached GeoJSON first (show spinner only on first load)
   const uncached = needed.filter(c => !regionGeoCache[c]);
