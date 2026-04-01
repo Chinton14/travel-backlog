@@ -3343,17 +3343,16 @@ function drawMap(geoJson, jenSet, chrisSet, container, jenTog, chrisTog, filterP
     ).join(' ');
   }
 
-  // Debug: find France and log its code
+  // Debug: log all unique property keys from first feature, and find France
+  const allKeys = Object.keys(geoJson.features[0]?.properties || {});
+  console.log('[WorldMap] Property keys:', allKeys);
+  // Try to find France by any means
   const frFeat = geoJson.features.find(f => {
     const p = f.properties;
-    return (p['ISO3166-1-Alpha-2'] || p.iso_a2 || p.ISO_A2 || p.iso2 || '') === 'FR';
+    return Object.values(p).some(v => v === 'FR' || v === 'FRA' || v === 'France');
   });
-  if (frFeat) {
-    const frCode = frFeat.properties['ISO3166-1-Alpha-2'] || frFeat.properties.iso_a2 || '';
-    console.log('[WorldMap] France code:', frCode, '| jenSet has FR:', jenSet.has('FR'), '| jenTog has FR:', jenTog?.has('FR'));
-  } else {
-    console.log('[WorldMap] France not found! Sample:', geoJson.features[0]?.properties);
-  }
+  if (frFeat) console.log('[WorldMap] France props:', frFeat.properties);
+  else console.log('[WorldMap] France not found in', geoJson.features.length, 'features');
 
   const paths = geoJson.features.map(f => {
     const props = f.properties;
