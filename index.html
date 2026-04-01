@@ -1851,10 +1851,58 @@ function renderSuggestions() {
 // renderSugList is defined below in the geo/stats section
 
 function quickAdd(destName, userName, catDisplay, eagerness) {
-  // Pre-fill and go straight to ranking flow — same as reRank
-  reRank(destName, userName, catDisplay, eagerness);
-  // Update left label
-  document.querySelector('#card-left .h2h-label').textContent = 'New to you';
+  // Pre-fill the add form but stop at the eagerness step — don't skip it
+  setAddMode('want');
+  currentUser = userName;
+  currentCat  = catDisplay;
+  currentGeoData = null; // will be re-resolved when they continue
+
+  // Set person
+  document.querySelectorAll('#user-toggle .toggle-btn').forEach(b => {
+    b.className = 'toggle-btn';
+    if (b.textContent.includes(userName)) b.classList.add('sel-' + userName.toLowerCase());
+  });
+  // Set destination name
+  document.getElementById('dest-input').value = destName;
+  // Set category
+  document.querySelectorAll('#cat-toggle .toggle-btn').forEach(b => {
+    b.className = 'toggle-btn';
+    if ((catDisplay === 'City Break' && b.textContent.includes('City')) ||
+        (catDisplay === 'Holiday'    && b.textContent.includes('Holiday')))
+      b.classList.add(catDisplay === 'City Break' ? 'sel-city' : 'sel-holiday');
+  });
+  // Leave eagerness blank — user must choose it themselves
+  currentEager = null;
+  document.querySelectorAll('#eager-toggle .toggle-btn').forEach(b => b.className = 'toggle-btn');
+  document.getElementById('eager-hint').textContent = '';
+  document.getElementById('start-btn').disabled = true;
+
+  // Trigger geocoding in the background so the form is ready when they pick eagerness
+  if (googleReady) {
+    const vEl = document.getElementById('dest-validation');
+    vEl.className = 'dest-validation searching';
+    vEl.textContent = '🔍 Looking up location…';
+    geocodeDestName(destName).then(geo => {
+      if (geo) {
+        currentGeoData = geo;
+        vEl.className = 'dest-validation ok';
+        vEl.textContent = '✓ ' + geo.country + (geo.region ? ' · ' + geo.region : '');
+      } else {
+        vEl.className = 'dest-validation err';
+        vEl.textContent = '⚠ Could not resolve. You can still proceed.';
+        // Allow proceeding without geo for suggestions
+        currentGeoData = { country: '', countryCode: '', region: null, lat: null, lng: null, isCity: true, canonicalName: destName };
+      }
+      updateStartBtn();
+    });
+  }
+
+  // Scroll to the form and show it
+  showScreen('add');
+  setTimeout(() => {
+    const card = document.querySelector('.card');
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
 }
 
 // ============================================================
