@@ -2908,6 +2908,7 @@ async function renderStats() {
   await renderRegions(jenEntries, chrisEntries);
 
   // ── World Map ──
+  renderWorldMap._geoCache = null; // clear cache to pick up any URL changes
   console.log('[Debug] jenCountries:', [...jenCountries]);
   console.log('[Debug] chrisCountries:', [...chrisCountries]);
   const _jenTog = new Set(jenEntries.filter(e => e.who === 'together').map(e => e.geo.countryCode));
@@ -3316,7 +3317,7 @@ async function renderWorldMap(jenCountries, chrisCountries, jenEntries, chrisEnt
   if (!renderWorldMap._geoCache) {
     container.innerHTML = '<div class="empty-state"><div class="es-icon">🗺</div>Loading map data…</div>';
     try {
-      const resp = await fetch('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson');
+      const resp = await fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson');
       renderWorldMap._geoCache = await resp.json();
     } catch(e) {
       container.innerHTML = '<div class="empty-state"><div class="es-icon">🗺</div>Could not load map data</div>';
@@ -3356,7 +3357,7 @@ function drawMap(geoJson, jenSet, chrisSet, container, jenTog, chrisTog, filterP
 
   const paths = geoJson.features.map(f => {
     const props = f.properties;
-    const code  = props['ISO3166-1-Alpha-2'] || props.iso_a2 || props.ISO_A2 || props.iso2 || '';
+    const code  = props.ISO_A2 || props['ISO3166-1-Alpha-2'] || props.iso_a2 || props.iso2 || '';
 
     let fill;
     if (filterPerson === 'jen') {
