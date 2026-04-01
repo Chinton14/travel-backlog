@@ -473,6 +473,10 @@
   .planning-year-panel {
     min-width: 100%; scroll-snap-align: start; flex-shrink: 0;
     padding: 0 24px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .planning-year-inner {
+    width: 100%; max-width: 620px;
   }
   .planning-year-header {
     display: flex; align-items: center; justify-content: space-between;
@@ -480,13 +484,13 @@
   }
   .planning-year-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
   }
   .planning-year-actions { display: flex; gap: 10px; align-items: center; }
   .planning-add-year-btn {
-    width: 36px; height: 36px; border-radius: 50%;
+    width: 32px; height: 32px; border-radius: 50%;
     background: var(--accent); color: white; border: none;
-    font-size: 1.3rem; cursor: pointer; display: flex;
+    font-size: 1.2rem; cursor: pointer; display: flex;
     align-items: center; justify-content: center;
     transition: all 0.2s; flex-shrink: 0;
   }
@@ -566,8 +570,8 @@
   .planning-month-label.current-month { color: var(--accent); font-weight: 600; }
 
   .planning-entries-col {
-    padding: 10px 0; display: flex; flex-wrap: wrap;
-    gap: 6px; align-items: flex-start; align-content: flex-start;
+    padding: 8px 0; display: flex; flex-direction: column;
+    gap: 5px; align-items: flex-start;
     min-height: 52px;
   }
   .planning-days-col {
@@ -582,14 +586,14 @@
 
   /* Entry pills */
   .planning-pill {
-    display: inline-flex; align-items: center; gap: 5px;
+    display: flex; align-items: center; gap: 5px;
     padding: 5px 10px 5px 12px;
     border-radius: 100px; font-size: 0.8rem; font-weight: 500;
     cursor: grab; user-select: none;
     background: var(--accent); color: white;
     box-shadow: 0 1px 4px rgba(0,0,0,0.15);
     transition: transform 0.15s, box-shadow 0.15s;
-    max-width: 200px;
+    width: fit-content; max-width: 100%;
   }
   .planning-pill:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
   .planning-pill.dragging { opacity: 0.5; cursor: grabbing; }
@@ -3389,9 +3393,7 @@ function renderPlanning() {
   const outer = document.getElementById('planning-outer');
   outer.innerHTML = planningYears.map(year => renderYearPanel(year)).join('');
   // Add + year button at the end
-  outer.innerHTML += `<div class="planning-year-panel" style="min-width:80px;display:flex;align-items:flex-start;padding-top:52px;">
-    <button class="planning-add-year-btn" onclick="addPlanningYear()" title="Add next year" style="width:48px;height:48px;font-size:1.6rem;">+</button>
-  </div>`;
+  // + year button is now in each year header, rendered inline
   attachDragListeners();
 }
 
@@ -3441,10 +3443,12 @@ function renderYearPanel(year) {
     .sort((a,b) => (a.sort_order||0) - (b.sort_order||0));
 
   return `<div class="planning-year-panel" id="year-panel-${year}">
+  <div class="planning-year-inner">
     <div class="planning-year-header">
       <span class="planning-year-title">${year}</span>
       <div class="planning-year-actions">
         <div class="year-nav" id="year-nav-${year}"></div>
+        <button class="planning-add-year-btn" onclick="addPlanningYear()" title="Add next year">+</button>
       </div>
     </div>
 
@@ -3509,6 +3513,7 @@ function renderYearPanel(year) {
         ${unplanned.length === 0 ? '<span style="font-size:0.85rem;color:var(--ink-light);font-weight:300;">Drag items here or use + Add to add unplanned events</span>' : ''}
       </div>
     </div>
+  </div>
   </div>`;
 }
 
