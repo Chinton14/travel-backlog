@@ -3084,7 +3084,7 @@ function buildEUSVG(features, jenSet, chrisSet, svgW, svgH, jenTog, chrisTog, fi
   const paths = features.map(f => {
     const props = f.properties || {};
     // EU GeoJSON uses ISO2 or similar — try multiple keys
-    const code = props.ISO2 || props.iso2 || props['ISO3166-1-Alpha-2'] || props.iso_a2 || props.ISO_A2 || '';
+    const code = props.ISO2 || props.iso2 || props.ISO_A2 || props.iso_a2 || props['ISO3166-1-Alpha-2'] || '';
     let fill;
     if (filterPerson === 'jen') {
       fill = jenSet.has(code) ? REGION_COLORS.jen : REGION_COLORS.none;
@@ -3340,6 +3340,18 @@ function drawMap(geoJson, jenSet, chrisSet, container, jenTog, chrisTog, filterP
         return (pi === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1);
       }).join(' ') + 'Z'
     ).join(' ');
+  }
+
+  // Debug: find France and log its code
+  const frFeat = geoJson.features.find(f => {
+    const p = f.properties;
+    return (p['ISO3166-1-Alpha-2'] || p.iso_a2 || p.ISO_A2 || p.iso2 || '') === 'FR';
+  });
+  if (frFeat) {
+    const frCode = frFeat.properties['ISO3166-1-Alpha-2'] || frFeat.properties.iso_a2 || '';
+    console.log('[WorldMap] France code:', frCode, '| jenSet has FR:', jenSet.has('FR'), '| jenTog has FR:', jenTog?.has('FR'));
+  } else {
+    console.log('[WorldMap] France not found! Sample:', geoJson.features[0]?.properties);
   }
 
   const paths = geoJson.features.map(f => {
