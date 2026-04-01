@@ -2178,12 +2178,9 @@ function quickAdd(destName, userName, catDisplay, eagerness) {
     });
   }
 
-  // Scroll to the form and show it
+  // Show add screen and scroll to top
   showScreen('add');
-  setTimeout(() => {
-    const card = document.querySelector('.card');
-    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 100);
+  setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50);
 }
 
 // ============================================================
@@ -2760,6 +2757,8 @@ function quickAddBeen(destName, userName, catDisplay) {
       updateStartBtn();
     });
   }
+  // Scroll to top of add form
+  setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50);
 }
 
 // ============================================================
