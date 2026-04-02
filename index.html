@@ -675,6 +675,207 @@
   .pmb-secondary { background: var(--sand); color: var(--ink); border: 1.5px solid var(--sand-dark); }
   .pmb-secondary:hover { border-color: var(--ink); }
 
+  /* ===== TRIP PLANNING ===== */
+  .tp-outer { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+
+  /* Dashboard */
+  .tp-dash-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 32px; }
+  .tp-dash-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; }
+  .tp-dash-sub { font-size: 0.88rem; color: var(--ink-light); margin-top: 4px; }
+  .tp-add-btn { display: flex; align-items: center; gap: 8px; padding: 12px 22px; background: var(--accent); color: white; border: none; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+  .tp-add-btn:hover { background: #B3672F; transform: translateY(-1px); }
+
+  /* Trip grid */
+  .tp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-bottom: 40px; }
+  .tp-card { background: var(--card-bg); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; cursor: pointer; transition: all 0.25s; }
+  .tp-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .tp-card-banner { height: 130px; position: relative; display: flex; align-items: flex-end; padding: 14px 16px; }
+  .tp-card-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.4); font-weight: 700; }
+  .tp-card-who { position: absolute; top: 10px; right: 10px; padding: 3px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 500; color: white; }
+  .tp-card-who.together { background: var(--together); }
+  .tp-card-who.jen     { background: var(--jen); }
+  .tp-card-who.chris   { background: var(--chris); }
+  .tp-card-archive-btn { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.3); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.15s; }
+  .tp-card:hover .tp-card-archive-btn { opacity: 1; }
+  .tp-card-archive-btn:hover { background: rgba(0,0,0,0.6); }
+  .tp-card-body { padding: 14px 16px; }
+  .tp-card-dates { font-size: 0.8rem; color: var(--ink-light); margin-bottom: 8px; }
+  .tp-card-footer { display: flex; align-items: center; justify-content: space-between; }
+  .tp-card-countdown { font-size: 0.78rem; font-weight: 500; color: var(--accent); }
+  .tp-card-status { font-size: 0.72rem; padding: 3px 10px; border-radius: 100px; font-weight: 500; }
+  .tp-status-planning { background: rgba(196,118,58,0.1); color: var(--accent); }
+  .tp-status-booked { background: rgba(46,125,82,0.1); color: #2E7D52; }
+  .tp-card-new { border: 2px dashed var(--sand-dark); background: transparent; box-shadow: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 200px; color: var(--ink-light); transition: all 0.2s; }
+  .tp-card-new:hover { border-color: var(--accent); color: var(--accent); background: rgba(196,118,58,0.04); transform: none; box-shadow: none; }
+  .tp-card-new-icon { font-size: 1.8rem; }
+  .tp-card-new-label { font-size: 0.88rem; font-weight: 500; }
+
+  /* Archive section */
+  .tp-archive-header { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-light); font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .tp-archive-header::after { content: ''; flex: 1; height: 1px; background: var(--sand-dark); }
+  .tp-archive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .tp-card-archived { opacity: 0.6; filter: grayscale(0.4); }
+  .tp-card-archived:hover { opacity: 0.9; filter: grayscale(0); }
+  .tp-unarchive-btn { font-size: 0.72rem; color: var(--ink-light); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; }
+  .tp-unarchive-btn:hover { color: var(--accent); }
+
+  /* Trip page */
+  .tp-page-header { background: var(--card-bg); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 24px; }
+  .tp-page-banner { height: 150px; position: relative; display: flex; align-items: flex-end; padding: 20px 24px; }
+  .tp-back-btn { position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,0.25); border: none; color: white; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); transition: background 0.2s; }
+  .tp-back-btn:hover { background: rgba(255,255,255,0.4); }
+  .tp-page-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: white; text-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+  .tp-page-meta { display: flex; align-items: center; gap: 16px; padding: 14px 24px; flex-wrap: wrap; border-bottom: 1px solid var(--sand); }
+  .tp-meta-chip { font-size: 0.82rem; color: var(--ink-light); display: flex; align-items: center; gap: 5px; }
+  .tp-meta-chip strong { color: var(--ink); }
+  .tp-meta-badge { padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 500; color: white; }
+
+  /* Trip stats */
+  .tp-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .tp-stat { background: var(--card-bg); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .tp-stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-light); margin-bottom: 4px; }
+  .tp-stat-val { font-family: 'Playfair Display', serif; font-size: 1.5rem; line-height: 1; }
+  .tp-stat-sub { font-size: 0.72rem; color: var(--ink-light); margin-top: 3px; }
+
+  /* Trip tabs */
+  .tp-tabs { display: flex; gap: 3px; background: var(--sand-dark); border-radius: 12px; padding: 4px; margin-bottom: 20px; overflow-x: auto; }
+  .tp-tab { flex: 1; min-width: fit-content; padding: 9px 12px; border: none; background: transparent; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500; cursor: pointer; color: var(--ink-light); transition: all 0.2s; white-space: nowrap; }
+  .tp-tab.active { background: white; color: var(--ink); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+  .tp-tab-content { display: none; }
+  .tp-tab-content.active { display: block; }
+
+  /* Section cards */
+  .tp-section { background: var(--card-bg); border-radius: 16px; box-shadow: var(--shadow); margin-bottom: 18px; overflow: hidden; }
+  .tp-section-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--sand); }
+  .tp-section-title { font-family: 'Playfair Display', serif; font-size: 1rem; }
+  .tp-section-add { display: flex; align-items: center; gap: 5px; padding: 6px 14px; border-radius: 100px; border: 1.5px solid var(--sand-dark); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; cursor: pointer; color: var(--ink-light); transition: all 0.15s; }
+  .tp-section-add:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Itinerary */
+  .tp-day { border-bottom: 1px solid var(--sand); }
+  .tp-day:last-child { border-bottom: none; }
+  .tp-day-header { display: flex; align-items: center; gap: 12px; padding: 14px 20px; }
+  .tp-day-num { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; flex-shrink: 0; }
+  .tp-day-info { flex: 1; }
+  .tp-day-label { font-weight: 500; font-size: 0.88rem; }
+  .tp-day-date { font-size: 0.76rem; color: var(--ink-light); }
+  .tp-day-items { padding: 0 20px 12px 66px; display: flex; flex-direction: column; gap: 7px; }
+  .tp-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; background: var(--sand); border-radius: 10px; }
+  .tp-item-time { font-size: 0.73rem; color: var(--ink-light); font-weight: 500; min-width: 40px; padding-top: 2px; flex-shrink: 0; }
+  .tp-item-content { flex: 1; min-width: 0; }
+  .tp-item-title { font-size: 0.86rem; font-weight: 500; }
+  .tp-item-note { font-size: 0.76rem; color: var(--ink-light); margin-top: 2px; }
+  .tp-item-type { font-size: 0.68rem; padding: 2px 8px; border-radius: 100px; font-weight: 500; margin-left: auto; flex-shrink: 0; white-space: nowrap; }
+  .tp-item-actions { display: flex; gap: 4px; margin-left: 6px; }
+  .tp-item-btn { background: none; border: none; cursor: pointer; font-size: 0.75rem; color: var(--ink-light); padding: 2px 4px; border-radius: 4px; transition: color 0.15s; }
+  .tp-item-btn:hover { color: var(--accent); }
+  .tp-type-food     { background: rgba(196,118,58,0.12); color: var(--accent); }
+  .tp-type-activity { background: rgba(74,138,111,0.12); color: var(--chris); }
+  .tp-type-transport{ background: rgba(91,141,217,0.12); color: var(--together); }
+  .tp-type-hotel    { background: rgba(123,111,160,0.12); color: var(--jen); }
+
+  /* Research rows */
+  .tp-research-item { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; padding: 12px 20px; border-bottom: 1px solid var(--sand); }
+  .tp-research-item:last-child { border-bottom: none; }
+  .tp-research-name { font-size: 0.86rem; font-weight: 500; }
+  .tp-research-note { font-size: 0.76rem; color: var(--ink-light); margin-top: 2px; }
+  .tp-research-link { font-size: 0.73rem; color: var(--together); text-decoration: none; }
+  .tp-research-link:hover { text-decoration: underline; }
+  .tp-research-cost { font-size: 0.86rem; font-weight: 500; text-align: right; white-space: nowrap; }
+  .tp-book-btn { padding: 5px 12px; border-radius: 100px; border: 1.5px solid #2E7D52; color: #2E7D52; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.73rem; font-weight: 500; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .tp-book-btn:hover { background: #2E7D52; color: white; }
+  .tp-booked-badge { padding: 3px 10px; border-radius: 100px; background: rgba(46,125,82,0.1); color: #2E7D52; font-size: 0.73rem; font-weight: 500; white-space: nowrap; }
+
+  /* Booked */
+  .tp-booked-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-bottom: 1px solid var(--sand); }
+  .tp-booked-sum-item { padding: 16px; text-align: center; border-right: 1px solid var(--sand); }
+  .tp-booked-sum-item:last-child { border-right: none; }
+  .tp-booked-sum-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-light); margin-bottom: 4px; }
+  .tp-booked-sum-val { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
+  .tp-booked-item { display: grid; grid-template-columns: 1fr auto auto auto; gap: 10px; align-items: center; padding: 12px 20px; border-bottom: 1px solid var(--sand); }
+  .tp-booked-item:last-child { border-bottom: none; }
+  .tp-booked-name { font-size: 0.86rem; font-weight: 500; }
+  .tp-booked-ref { font-size: 0.74rem; color: var(--ink-light); margin-top: 2px; }
+  .tp-booked-due { font-size: 0.73rem; color: #C62828; margin-top: 2px; }
+  .tp-booked-col { text-align: right; }
+  .tp-booked-col-label { font-size: 0.68rem; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.05em; }
+  .tp-booked-col-val { font-size: 0.86rem; font-weight: 500; }
+  .tp-leave-btn { margin: 14px 20px; display: flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 12px; border: 1.5px solid var(--sand-dark); background: var(--sand); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.83rem; color: var(--ink-light); transition: all 0.2s; width: fit-content; }
+  .tp-leave-btn:hover { border-color: var(--accent); color: var(--accent); background: white; }
+
+  /* Todo */
+  .tp-todo-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--sand); }
+  .tp-todo-item:last-child { border-bottom: none; }
+  .tp-todo-check { width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--sand-dark); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; font-size: 0.7rem; color: transparent; }
+  .tp-todo-check.done { background: #2E7D52; border-color: #2E7D52; color: white; }
+  .tp-todo-label { flex: 1; font-size: 0.86rem; }
+  .tp-todo-label.done { text-decoration: line-through; color: var(--ink-light); }
+  .tp-todo-who { font-size: 0.7rem; padding: 3px 10px; border-radius: 100px; font-weight: 500; color: white; }
+  .tp-todo-del { background: none; border: none; cursor: pointer; color: var(--ink-light); font-size: 0.8rem; opacity: 0; transition: opacity 0.15s; }
+  .tp-todo-item:hover .tp-todo-del { opacity: 1; }
+
+  /* Packing */
+  .tp-pack-cat { border-bottom: 1px solid var(--sand); }
+  .tp-pack-cat:last-child { border-bottom: none; }
+  .tp-pack-cat-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; }
+  .tp-pack-cat-title { font-weight: 500; font-size: 0.88rem; }
+  .tp-pack-cat-count { font-size: 0.73rem; color: var(--ink-light); }
+  .tp-pack-items { padding: 2px 20px 12px 40px; display: flex; flex-direction: column; gap: 6px; }
+  .tp-pack-item { display: flex; align-items: center; gap: 8px; font-size: 0.84rem; }
+  .tp-pack-item input[type=checkbox] { accent-color: var(--accent); cursor: pointer; }
+  .tp-pack-item.packed label { text-decoration: line-through; color: var(--ink-light); }
+
+  /* Weather */
+  .tp-weather-grid { display: grid; grid-template-columns: repeat(4,1fr); }
+  .tp-weather-col { padding: 16px; text-align: center; border-right: 1px solid var(--sand); }
+  .tp-weather-col:last-child { border-right: none; }
+  .tp-weather-col.active-month { background: rgba(196,118,58,0.05); }
+  .tp-weather-month { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-light); margin-bottom: 6px; }
+  .tp-weather-icon { font-size: 1.5rem; margin-bottom: 5px; }
+  .tp-weather-temp { font-size: 0.84rem; font-weight: 500; }
+  .tp-weather-desc { font-size: 0.7rem; color: var(--ink-light); margin-top: 3px; }
+
+  /* Notes */
+  .tp-notes-area { width: 100%; border: none; outline: none; padding: 16px 20px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--ink); background: transparent; resize: none; min-height: 160px; line-height: 1.7; }
+
+  /* Modals */
+  .tp-modal-overlay { position: fixed; inset: 0; background: rgba(26,23,20,0.5); z-index: 600; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .tp-modal-overlay.hidden { display: none; }
+  .tp-modal { background: var(--card-bg); border-radius: 18px; padding: 26px; box-shadow: 0 8px 40px rgba(0,0,0,0.2); width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto; }
+  .tp-modal h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 18px; }
+  .tp-field { margin-bottom: 14px; }
+  .tp-field label { display: block; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-light); margin-bottom: 5px; }
+  .tp-field input, .tp-field select, .tp-field textarea { width: 100%; padding: 10px 13px; border: 1.5px solid var(--sand-dark); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; background: var(--sand); color: var(--ink); outline: none; transition: border-color 0.2s; }
+  .tp-field input:focus, .tp-field select:focus, .tp-field textarea:focus { border-color: var(--accent); background: white; }
+  .tp-field textarea { resize: vertical; min-height: 70px; }
+  .tp-who-toggle { display: flex; gap: 7px; }
+  .tp-who-btn { flex: 1; padding: 9px; border-radius: 9px; border: 1.5px solid var(--sand-dark); background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.15s; color: var(--ink-light); }
+  .tp-who-btn.sel-together { background: var(--together); border-color: var(--together); color: white; }
+  .tp-who-btn.sel-jen { background: var(--jen); border-color: var(--jen); color: white; }
+  .tp-who-btn.sel-chris { background: var(--chris); border-color: var(--chris); color: white; }
+  .tp-modal-actions { display: flex; gap: 10px; margin-top: 18px; }
+  .tp-modal-btn { flex: 1; padding: 11px; border-radius: 10px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; border: none; transition: all 0.2s; }
+  .tp-modal-btn-primary { background: var(--accent); color: white; }
+  .tp-modal-btn-primary:hover { background: #B3672F; }
+  .tp-modal-btn-secondary { background: var(--sand); color: var(--ink); border: 1.5px solid var(--sand-dark); }
+  .tp-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* Gradient colours for trip banners */
+  .tp-grad-0 { background: linear-gradient(135deg,#f093fb,#f5576c); }
+  .tp-grad-1 { background: linear-gradient(135deg,#4facfe,#00f2fe); }
+  .tp-grad-2 { background: linear-gradient(135deg,#fa709a,#fee140); }
+  .tp-grad-3 { background: linear-gradient(135deg,#0093E9,#80D0C7); }
+  .tp-grad-4 { background: linear-gradient(135deg,#667eea,#764ba2); }
+  .tp-grad-5 { background: linear-gradient(135deg,#f7971e,#ffd200); }
+  .tp-grad-6 { background: linear-gradient(135deg,#56ab2f,#a8e063); }
+  .tp-grad-7 { background: linear-gradient(135deg,#ee0979,#ff6a00); }
+  .tp-grad-8 { background: linear-gradient(135deg,#396afc,#2948ff); }
+  .tp-grad-9 { background: linear-gradient(135deg,#f953c6,#b91d73); }
+  .tp-grad-10{ background: linear-gradient(135deg,#00b09b,#96c93d); }
+  .tp-grad-11{ background: linear-gradient(135deg,#e52d27,#b31217); }
+
+  /* ===== END TRIP PLANNING ===== */
+
   /* Year navigation dots */
   .year-nav { display: flex; gap: 8px; align-items: center; }
   .year-dot {
@@ -824,7 +1025,8 @@
       <button class="nav-btn active" onclick="showScreen('add')">Add Destination</button>
       <button class="nav-btn" onclick="goToRankings()">Want to Go</button>
       <button class="nav-btn" onclick="goToBeen()">Been There</button>
-      <button class="nav-btn" onclick="goToPlanning()">Planning</button>
+      <button class="nav-btn" onclick="goToPlanning()">Annual Leave</button>
+      <button class="nav-btn" onclick="goToTripPlanning()">Trip Planning</button>
     </div>
   </div>
 </header>
@@ -1254,6 +1456,268 @@
 <div class="screen" id="screen-planning">
   <div class="planning-outer" id="planning-outer">
     <!-- Year panels injected by JS -->
+  </div>
+</div>
+
+<!-- ===== TRIP PLANNING SCREEN ===== -->
+<div class="screen" id="screen-trips">
+  <div class="tp-outer">
+
+    <!-- DASHBOARD VIEW -->
+    <div id="tp-dashboard">
+      <div class="tp-dash-header">
+        <div>
+          <div class="tp-dash-title">Trip Planning</div>
+          <div class="tp-dash-sub">All your adventures, organised in one place</div>
+        </div>
+        <button class="tp-add-btn" onclick="openNewTripModal()">+ New Trip</button>
+      </div>
+      <div class="tp-grid" id="tp-active-grid">
+        <!-- Active trip cards injected by JS -->
+        <div class="tp-card tp-card-new" onclick="openNewTripModal()">
+          <div class="tp-card-new-icon">+</div>
+          <div class="tp-card-new-label">New Trip</div>
+        </div>
+      </div>
+
+      <!-- Archive -->
+      <div id="tp-archive-section" style="display:none;">
+        <div class="tp-archive-header">Archived Trips</div>
+        <div class="tp-grid tp-archive-grid" id="tp-archive-grid"></div>
+      </div>
+    </div>
+
+    <!-- TRIP DETAIL VIEW -->
+    <div id="tp-detail" style="display:none;">
+      <div class="tp-page-header">
+        <div class="tp-page-banner" id="tp-detail-banner">
+          <button class="tp-back-btn" onclick="showTpDashboard()">←</button>
+          <div class="tp-page-title" id="tp-detail-title"></div>
+        </div>
+        <div class="tp-page-meta" id="tp-detail-meta"></div>
+      </div>
+
+      <div class="tp-stats" id="tp-detail-stats"></div>
+
+      <div class="tp-tabs">
+        <button class="tp-tab active" onclick="switchTpTab(this,'itinerary')">📋 Itinerary</button>
+        <button class="tp-tab" onclick="switchTpTab(this,'research')">🔍 Research</button>
+        <button class="tp-tab" onclick="switchTpTab(this,'booked')">✅ Booked</button>
+        <button class="tp-tab" onclick="switchTpTab(this,'todo')">☑ To Do</button>
+        <button class="tp-tab" onclick="switchTpTab(this,'packing')">🧳 Packing</button>
+        <button class="tp-tab" onclick="switchTpTab(this,'weather')">🌤 Weather</button>
+        <button class="tp-tab" onclick="switchTpTab(this,'notes')">📝 Notes</button>
+      </div>
+
+      <!-- Itinerary -->
+      <div class="tp-tab-content active" id="tp-tab-itinerary">
+        <div class="tp-section">
+          <div class="tp-section-header">
+            <div class="tp-section-title">📋 Itinerary</div>
+            <button class="tp-section-add" onclick="openItineraryModal()">+ Add</button>
+          </div>
+          <div id="tp-itinerary-body"></div>
+        </div>
+      </div>
+
+      <!-- Research -->
+      <div class="tp-tab-content" id="tp-tab-research">
+        <div id="tp-research-body"></div>
+      </div>
+
+      <!-- Booked -->
+      <div class="tp-tab-content" id="tp-tab-booked">
+        <div class="tp-section">
+          <div id="tp-booked-body"></div>
+        </div>
+      </div>
+
+      <!-- Todo -->
+      <div class="tp-tab-content" id="tp-tab-todo">
+        <div class="tp-section">
+          <div class="tp-section-header">
+            <div class="tp-section-title">☑ To Do</div>
+            <button class="tp-section-add" onclick="openTodoModal()">+ Add</button>
+          </div>
+          <div id="tp-todo-body"></div>
+        </div>
+      </div>
+
+      <!-- Packing -->
+      <div class="tp-tab-content" id="tp-tab-packing">
+        <div class="tp-section">
+          <div class="tp-section-header">
+            <div class="tp-section-title">🧳 Packing List</div>
+            <button class="tp-section-add" onclick="openPackingModal()">+ Add item</button>
+          </div>
+          <div id="tp-packing-body"></div>
+        </div>
+      </div>
+
+      <!-- Weather -->
+      <div class="tp-tab-content" id="tp-tab-weather">
+        <div class="tp-section">
+          <div class="tp-section-header">
+            <div class="tp-section-title">🌤 Typical Weather</div>
+          </div>
+          <div id="tp-weather-body"></div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="tp-tab-content" id="tp-tab-notes">
+        <div class="tp-section">
+          <div class="tp-section-header">
+            <div class="tp-section-title">📝 Notes</div>
+          </div>
+          <textarea class="tp-notes-area" id="tp-notes-area" placeholder="Freeform notes, tips, ideas, links…" oninput="saveTripNotes()"></textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== TRIP PLANNING MODALS ===== -->
+
+<!-- New Trip -->
+<div class="tp-modal-overlay hidden" id="tp-new-trip-modal">
+  <div class="tp-modal">
+    <h3 id="tp-trip-modal-title">New Trip</h3>
+    <div class="tp-field"><label>Destination / Trip Name</label><input type="text" id="tp-trip-title" placeholder="e.g. Paris, NC500, Maldives…" /></div>
+    <div class="tp-field">
+      <label>Who's going?</label>
+      <div class="tp-who-toggle">
+        <button class="tp-who-btn sel-together" onclick="tpSelectWho(this,'together')">🌍 Together</button>
+        <button class="tp-who-btn" onclick="tpSelectWho(this,'jen')">✨ Jen</button>
+        <button class="tp-who-btn" onclick="tpSelectWho(this,'chris')">🌍 Chris</button>
+      </div>
+    </div>
+    <div class="tp-two-col">
+      <div class="tp-field"><label>Start Date</label><input type="date" id="tp-trip-start" /></div>
+      <div class="tp-field"><label>End Date</label><input type="date" id="tp-trip-end" /></div>
+    </div>
+    <div class="tp-field"><label>Status</label>
+      <select id="tp-trip-status">
+        <option value="planning">Planning</option>
+        <option value="booked">Booked</option>
+      </select>
+    </div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-new-trip-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="saveTripModal()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Itinerary item -->
+<div class="tp-modal-overlay hidden" id="tp-itinerary-modal">
+  <div class="tp-modal">
+    <h3>Add Itinerary Item</h3>
+    <div class="tp-field"><label>Date</label><input type="date" id="tp-itin-date" /></div>
+    <div class="tp-two-col">
+      <div class="tp-field"><label>Time (optional)</label><input type="time" id="tp-itin-time" /></div>
+      <div class="tp-field"><label>Type</label>
+        <select id="tp-itin-type">
+          <option value="activity">Activity</option>
+          <option value="food">Food & Drink</option>
+          <option value="transport">Transport</option>
+          <option value="hotel">Hotel</option>
+        </select>
+      </div>
+    </div>
+    <div class="tp-field"><label>Title</label><input type="text" id="tp-itin-title" placeholder="e.g. Eiffel Tower visit" /></div>
+    <div class="tp-field"><label>Notes (optional)</label><input type="text" id="tp-itin-note" placeholder="e.g. Pre-booked tickets, meet at entrance" /></div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-itinerary-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="saveItineraryItem()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Research item -->
+<div class="tp-modal-overlay hidden" id="tp-research-modal">
+  <div class="tp-modal">
+    <h3>Add Research Item</h3>
+    <div class="tp-field"><label>Category</label>
+      <select id="tp-res-cat">
+        <option value="hotel">🏨 Hotels</option>
+        <option value="flight">✈ Flights</option>
+        <option value="restaurant">🍽 Restaurants</option>
+        <option value="activity">🎭 Activities</option>
+        <option value="transport">🚆 Transport</option>
+        <option value="visa">🛂 Visa & Entry</option>
+        <option value="other">📌 Other</option>
+      </select>
+    </div>
+    <div class="tp-field"><label>Name</label><input type="text" id="tp-res-name" placeholder="e.g. Hôtel Verneuil" /></div>
+    <div class="tp-field"><label>Notes (optional)</label><input type="text" id="tp-res-note" placeholder="e.g. Breakfast included, great location" /></div>
+    <div class="tp-field"><label>URL (optional)</label><input type="url" id="tp-res-url" placeholder="https://…" /></div>
+    <div class="tp-field"><label>Estimated Cost (£)</label><input type="number" id="tp-res-cost" min="0" step="0.01" value="0" /></div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-research-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="saveResearchItem()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Booked item -->
+<div class="tp-modal-overlay hidden" id="tp-booked-modal">
+  <div class="tp-modal">
+    <h3>Add Booking</h3>
+    <div class="tp-field"><label>Name</label><input type="text" id="tp-book-name" placeholder="e.g. British Airways flights" /></div>
+    <div class="tp-field"><label>Reference / Confirmation</label><input type="text" id="tp-book-ref" placeholder="e.g. ABCD12" /></div>
+    <div class="tp-two-col">
+      <div class="tp-field"><label>Total Cost (£)</label><input type="number" id="tp-book-total" min="0" step="0.01" value="0" /></div>
+      <div class="tp-field"><label>Amount Paid (£)</label><input type="number" id="tp-book-paid" min="0" step="0.01" value="0" /></div>
+    </div>
+    <div class="tp-field"><label>Balance Due Date (optional)</label><input type="date" id="tp-book-due" /></div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-booked-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="saveBookedItem()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Todo item -->
+<div class="tp-modal-overlay hidden" id="tp-todo-modal">
+  <div class="tp-modal">
+    <h3>Add To Do</h3>
+    <div class="tp-field"><label>Task</label><input type="text" id="tp-todo-title" placeholder="e.g. Book airport transfer" /></div>
+    <div class="tp-field"><label>Assign to</label>
+      <div class="tp-who-toggle">
+        <button class="tp-who-btn sel-together" onclick="tpSelectWhoTodo(this,'both')">Both</button>
+        <button class="tp-who-btn" onclick="tpSelectWhoTodo(this,'jen')">✨ Jen</button>
+        <button class="tp-who-btn" onclick="tpSelectWhoTodo(this,'chris')">🌍 Chris</button>
+      </div>
+    </div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-todo-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="saveTodoItem()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Packing item -->
+<div class="tp-modal-overlay hidden" id="tp-packing-modal">
+  <div class="tp-modal">
+    <h3>Add Packing Item</h3>
+    <div class="tp-field"><label>Category</label>
+      <select id="tp-pack-cat">
+        <option>📄 Documents</option>
+        <option>👔 Clothes</option>
+        <option>💊 Health</option>
+        <option>🔌 Tech & Gadgets</option>
+        <option>🧴 Toiletries</option>
+        <option>💳 Money & Cards</option>
+        <option>📌 Other</option>
+      </select>
+    </div>
+    <div class="tp-field"><label>Item</label><input type="text" id="tp-pack-item" placeholder="e.g. Passport" /></div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-packing-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="savePackingItem()">Save</button>
+    </div>
   </div>
 </div>
 
@@ -3777,6 +4241,748 @@ document.addEventListener('keydown', e => {
 });
 
 // ============================================================
+// TRIP PLANNING
+// ============================================================
+const TP = {
+  TRIPS:    'trips', ITIN: 'trip_itinerary', RESEARCH: 'trip_research',
+  BOOKED:   'trip_booked', TODOS: 'trip_todos', PACKING: 'trip_packing'
+};
+
+// In-memory store
+let tpTrips = [], tpItin = [], tpResearch = [], tpBooked = [], tpTodos = [], tpPacking = [];
+let tpCurrentTrip = null;
+let tpWho = 'together', tpTodoWho = 'both';
+let tpEditingTripId = null;
+
+// ── Gradient picker (consistent by title) ──
+function tpGradient(title, count=12) {
+  let h = 0;
+  for (let i = 0; i < title.length; i++) h = ((h << 5) - h) + title.charCodeAt(i);
+  return Math.abs(h) % count;
+}
+
+// ── Load ──
+async function loadTripPlanning() {
+  try {
+    const [trips, itin, research, booked, todos, packing] = await Promise.all([
+      sbFetch('GET', TP.TRIPS + '?select=*&order=created_at'),
+      sbFetch('GET', TP.ITIN + '?select=*&order=trip_date,sort_order'),
+      sbFetch('GET', TP.RESEARCH + '?select=*&order=category,sort_order'),
+      sbFetch('GET', TP.BOOKED + '?select=*&order=sort_order'),
+      sbFetch('GET', TP.TODOS + '?select=*&order=sort_order'),
+      sbFetch('GET', TP.PACKING + '?select=*&order=category,sort_order'),
+    ]);
+    tpTrips = trips || []; tpItin = itin || []; tpResearch = research || [];
+    tpBooked = booked || []; tpTodos = todos || []; tpPacking = packing || [];
+  } catch(e) { console.warn('Trip planning load failed:', e); }
+}
+
+// ── Supabase helpers ──
+async function tpSave(table, row) {
+  const isUpdate = !!row.id;
+  const url = SUPABASE_URL + '/rest/v1/' + table + (isUpdate ? '?id=eq.' + row.id : '');
+  const body = { ...row, updated_at: new Date().toISOString() };
+  if (!isUpdate) delete body.id;
+  const res = await fetch(url, {
+    method: isUpdate ? 'PATCH' : 'POST',
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error(await res.text());
+  const data = await res.json();
+  return Array.isArray(data) ? data[0] : data;
+}
+
+async function tpDelete(table, id) {
+  await sbDelete(table + '?id=eq.' + id);
+}
+
+// ── Navigation ──
+function goToTripPlanning() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-trips').classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-btn')[4].classList.add('active');
+  showTpDashboard();
+}
+
+function showTpDashboard() {
+  document.getElementById('tp-dashboard').style.display = '';
+  document.getElementById('tp-detail').style.display = 'none';
+  tpCurrentTrip = null;
+  renderTpDashboard();
+  window.scrollTo(0, 0);
+}
+
+function showTpDetail(tripId) {
+  tpCurrentTrip = tpTrips.find(t => t.id === tripId);
+  if (!tpCurrentTrip) return;
+  document.getElementById('tp-dashboard').style.display = 'none';
+  document.getElementById('tp-detail').style.display = '';
+  // Reset to first tab
+  document.querySelectorAll('.tp-tab').forEach((b,i) => b.classList.toggle('active', i===0));
+  document.querySelectorAll('.tp-tab-content').forEach((c,i) => c.classList.toggle('active', i===0));
+  renderTpDetail();
+  window.scrollTo(0, 0);
+}
+
+function switchTpTab(btn, tabId) {
+  document.querySelectorAll('.tp-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tp-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tp-tab-' + tabId)?.classList.add('active');
+}
+
+// ── Dashboard render ──
+function renderTpDashboard() {
+  const grid = document.getElementById('tp-active-grid');
+  const active = tpTrips.filter(t => !t.is_archived);
+  const archived = tpTrips.filter(t => t.is_archived);
+
+  const newCard = `<div class="tp-card tp-card-new" onclick="openNewTripModal()">
+    <div class="tp-card-new-icon">+</div>
+    <div class="tp-card-new-label">New Trip</div>
+  </div>`;
+
+  grid.innerHTML = active.map(t => renderTpCard(t)).join('') + newCard;
+
+  const archSec = document.getElementById('tp-archive-section');
+  const archGrid = document.getElementById('tp-archive-grid');
+  if (archived.length > 0) {
+    archSec.style.display = '';
+    archGrid.innerHTML = archived.map(t => renderTpCard(t, true)).join('');
+  } else {
+    archSec.style.display = 'none';
+  }
+}
+
+function renderTpCard(trip, archived=false) {
+  const grad = tpGradient(trip.title);
+  const who = trip.who || 'together';
+  const whoLabel = who === 'together' ? 'Together' : who === 'jen' ? '✨ Jen' : '🌍 Chris';
+  const countdown = tpCountdown(trip.start_date);
+  const dateStr = trip.start_date
+    ? tpFmtDate(trip.start_date) + (trip.end_date ? ' – ' + tpFmtDate(trip.end_date) : '')
+    : 'No dates yet';
+  const statusCls = trip.status === 'booked' ? 'tp-status-booked' : 'tp-status-planning';
+  const statusLabel = trip.status === 'booked' ? 'Booked' : 'Planning';
+  const archiveBtn = archived
+    ? `<button class="tp-card-archive-btn" onclick="event.stopPropagation();tpUnarchive('${trip.id}')" title="Restore">↩</button>`
+    : `<button class="tp-card-archive-btn" onclick="event.stopPropagation();tpArchive('${trip.id}')" title="Archive">📦</button>`;
+
+  return `<div class="tp-card${archived?' tp-card-archived':''}" onclick="showTpDetail('${trip.id}')">
+    <div class="tp-card-banner tp-grad-${grad}">
+      ${archiveBtn}
+      <div class="tp-card-who ${who}">${whoLabel}</div>
+      <div class="tp-card-title">${trip.title}</div>
+    </div>
+    <div class="tp-card-body">
+      <div class="tp-card-dates">📅 ${dateStr}</div>
+      <div class="tp-card-footer">
+        <div class="tp-card-countdown">${countdown}</div>
+        <div class="tp-card-status ${statusCls}">${statusLabel}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function tpCountdown(startDate) {
+  if (!startDate) return '🗺 In planning';
+  const days = Math.ceil((new Date(startDate) - new Date()) / 86400000);
+  if (days < 0) return '✓ Trip passed';
+  if (days === 0) return '✈ Today!';
+  if (days === 1) return '✈ Tomorrow!';
+  return `✈ ${days} days to go`;
+}
+
+function tpFmtDate(d) {
+  if (!d) return '';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+// ── Archive ──
+async function tpArchive(id) {
+  if (!confirm('Archive this trip?')) return;
+  const t = tpTrips.find(t => t.id === id);
+  if (!t) return;
+  t.is_archived = true;
+  renderTpDashboard();
+  try { await tpSave(TP.TRIPS, { id, is_archived: true }); setSyncState('ok','saved'); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+async function tpUnarchive(id) {
+  const t = tpTrips.find(t => t.id === id);
+  if (!t) return;
+  t.is_archived = false;
+  renderTpDashboard();
+  try { await tpSave(TP.TRIPS, { id, is_archived: false }); setSyncState('ok','saved'); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+// ── Trip detail render ──
+function renderTpDetail() {
+  const t = tpCurrentTrip;
+  const grad = tpGradient(t.title);
+  document.getElementById('tp-detail-banner').className = 'tp-page-banner tp-grad-' + grad;
+  document.getElementById('tp-detail-title').textContent = t.title;
+
+  // Meta
+  const who = t.who || 'together';
+  const whoLabel = who === 'together' ? '🌍 Together' : who === 'jen' ? '✨ Jen' : '🌍 Chris';
+  const whoBg = who === 'together' ? 'var(--together)' : who === 'jen' ? 'var(--jen)' : 'var(--chris)';
+  const nights = t.start_date && t.end_date
+    ? Math.ceil((new Date(t.end_date) - new Date(t.start_date)) / 86400000) + ' nights'
+    : '';
+  const dateStr = t.start_date
+    ? tpFmtDate(t.start_date) + (t.end_date ? ' – ' + tpFmtDate(t.end_date) : '')
+    : 'No dates set yet';
+  document.getElementById('tp-detail-meta').innerHTML = `
+    <div class="tp-meta-chip">📅 <strong>${dateStr}</strong>${nights ? ' &nbsp;(' + nights + ')' : ''}</div>
+    <div class="tp-meta-chip">${tpCountdown(t.start_date)}</div>
+    <div class="tp-meta-badge" style="background:${whoBg}">${whoLabel}</div>
+    <button class="tp-section-add" onclick="openEditTripModal()">✏ Edit trip</button>`;
+
+  // Stats
+  const myBooked = tpBooked.filter(b => b.trip_id === t.id);
+  const totalCost = myBooked.reduce((s,b) => s + (parseFloat(b.total_cost)||0), 0);
+  const totalPaid = myBooked.reduce((s,b) => s + (parseFloat(b.amount_paid)||0), 0);
+  const toPay = totalCost - totalPaid;
+  // Leave days (weekdays only between start and end)
+  const leaveDays = t.start_date && t.end_date ? countWeekdays(t.start_date, t.end_date) : 0;
+  document.getElementById('tp-detail-stats').innerHTML = `
+    <div class="tp-stat"><div class="tp-stat-label">Total Cost</div><div class="tp-stat-val">£${totalCost.toFixed(0)}</div><div class="tp-stat-sub">booked so far</div></div>
+    <div class="tp-stat"><div class="tp-stat-label">Paid</div><div class="tp-stat-val" style="color:#2E7D52">£${totalPaid.toFixed(0)}</div><div class="tp-stat-sub">${totalCost > 0 ? Math.round(totalPaid/totalCost*100) : 0}% of total</div></div>
+    <div class="tp-stat"><div class="tp-stat-label">To Pay</div><div class="tp-stat-val" style="color:#C62828">£${toPay.toFixed(0)}</div><div class="tp-stat-sub">remaining</div></div>
+    <div class="tp-stat"><div class="tp-stat-label">Leave Days</div><div class="tp-stat-val">${leaveDays}</div><div class="tp-stat-sub">weekdays</div></div>`;
+
+  renderTpItinerary(); renderTpResearch(); renderTpBooked();
+  renderTpTodos(); renderTpPacking(); renderTpWeather();
+  // Notes
+  const notesEl = document.getElementById('tp-notes-area');
+  notesEl.value = t.notes || '';
+}
+
+function countWeekdays(start, end) {
+  let count = 0, cur = new Date(start + 'T00:00:00');
+  const endD = new Date(end + 'T00:00:00');
+  while (cur < endD) { const d = cur.getDay(); if (d !== 0 && d !== 6) count++; cur.setDate(cur.getDate()+1); }
+  return count;
+}
+
+// ── Itinerary ──
+function renderTpItinerary() {
+  const t = tpCurrentTrip;
+  const items = tpItin.filter(i => i.trip_id === t.id).sort((a,b) => {
+    if (a.trip_date !== b.trip_date) return a.trip_date.localeCompare(b.trip_date);
+    return (a.time_of_day||'').localeCompare(b.time_of_day||'');
+  });
+  const el = document.getElementById('tp-itinerary-body');
+  if (!items.length) { el.innerHTML = '<div style="padding:20px;color:var(--ink-light);font-size:0.88rem;text-align:center;">No itinerary items yet — click + Add to get started</div>'; return; }
+
+  // Group by date
+  const byDate = {};
+  items.forEach(i => { if (!byDate[i.trip_date]) byDate[i.trip_date] = []; byDate[i.trip_date].push(i); });
+  const days = Object.keys(byDate).sort();
+  const typeMap = { food:'tp-type-food', activity:'tp-type-activity', transport:'tp-type-transport', hotel:'tp-type-hotel' };
+  const typeLabel = { food:'Food', activity:'Activity', transport:'Transport', hotel:'Hotel' };
+
+  el.innerHTML = days.map((date, idx) => {
+    const label = new Date(date + 'T00:00:00').toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+    const dayItems = byDate[date].map(i => `
+      <div class="tp-item">
+        <div class="tp-item-time">${i.time_of_day || '—'}</div>
+        <div class="tp-item-content">
+          <div class="tp-item-title">${i.title}</div>
+          ${i.note ? `<div class="tp-item-note">${i.note}</div>` : ''}
+        </div>
+        <div class="tp-item-type ${typeMap[i.type]||'tp-type-activity'}">${typeLabel[i.type]||'Activity'}</div>
+        <div class="tp-item-actions">
+          <button class="tp-item-btn" onclick="deleteTpItem('${TP.ITIN}','${i.id}',tpItin)">×</button>
+        </div>
+      </div>`).join('');
+    return `<div class="tp-day">
+      <div class="tp-day-header">
+        <div class="tp-day-num">${idx+1}</div>
+        <div class="tp-day-info">
+          <div class="tp-day-label">Day ${idx+1}</div>
+          <div class="tp-day-date">${label}</div>
+        </div>
+      </div>
+      <div class="tp-day-items">${dayItems}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Research ──
+const TP_RESEARCH_CATS = [
+  { key:'hotel',      label:'🏨 Hotels' },
+  { key:'flight',     label:'✈ Flights' },
+  { key:'restaurant', label:'🍽 Restaurants' },
+  { key:'activity',   label:'🎭 Activities' },
+  { key:'transport',  label:'🚆 Transport' },
+  { key:'visa',       label:'🛂 Visa & Entry' },
+  { key:'other',      label:'📌 Other' },
+];
+
+function renderTpResearch() {
+  const t = tpCurrentTrip;
+  const items = tpResearch.filter(r => r.trip_id === t.id);
+  const el = document.getElementById('tp-research-body');
+  el.innerHTML = TP_RESEARCH_CATS.map(cat => {
+    const catItems = items.filter(r => r.category === cat.key);
+    const rows = catItems.length ? catItems.map(r => `
+      <div class="tp-research-item">
+        <div>
+          <div class="tp-research-name">${r.name}</div>
+          ${r.note ? `<div class="tp-research-note">${r.note}</div>` : ''}
+          ${r.url ? `<a class="tp-research-link" href="${r.url}" target="_blank">${new URL(r.url).hostname} →</a>` : ''}
+        </div>
+        <div class="tp-research-cost">${r.cost_gbp > 0 ? '£' + parseFloat(r.cost_gbp).toFixed(0) : '—'}</div>
+        ${r.is_booked
+          ? `<div class="tp-booked-badge">✓ Booked</div>`
+          : `<button class="tp-book-btn" onclick="markResearchBooked('${r.id}')">Mark Booked</button>`}
+      </div>`) .join('')
+    : `<div style="padding:12px 20px;font-size:0.84rem;color:var(--ink-light);">No ${cat.label.replace(/[^a-zA-Z ]/g,'')} items yet</div>`;
+    return `<div class="tp-section" style="margin-bottom:14px;">
+      <div class="tp-section-header">
+        <div class="tp-section-title">${cat.label}</div>
+        <button class="tp-section-add" onclick="openResearchModal('${cat.key}')">+ Add</button>
+      </div>
+      ${rows}
+    </div>`;
+  }).join('');
+}
+
+async function markResearchBooked(id) {
+  const r = tpResearch.find(r => r.id === id);
+  if (!r) return;
+  r.is_booked = true;
+  renderTpResearch();
+  try { await tpSave(TP.RESEARCH, { id, is_booked: true }); toastMsg('Marked as booked ✓'); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+// ── Booked ──
+function renderTpBooked() {
+  const t = tpCurrentTrip;
+  const items = tpBooked.filter(b => b.trip_id === t.id);
+  const totalCost = items.reduce((s,b) => s + (parseFloat(b.total_cost)||0), 0);
+  const totalPaid = items.reduce((s,b) => s + (parseFloat(b.amount_paid)||0), 0);
+  const toPay = totalCost - totalPaid;
+  const el = document.getElementById('tp-booked-body');
+
+  const rows = items.map(b => {
+    const remaining = (parseFloat(b.total_cost)||0) - (parseFloat(b.amount_paid)||0);
+    const dueStr = b.due_date ? `<div class="tp-booked-due">⚠ Balance due ${tpFmtDate(b.due_date)}</div>` : '';
+    return `<div class="tp-booked-item">
+      <div>
+        <div class="tp-booked-name">${b.name}</div>
+        ${b.reference ? `<div class="tp-booked-ref">Ref: ${b.reference}</div>` : ''}
+        ${dueStr}
+      </div>
+      <div class="tp-booked-col"><div class="tp-booked-col-label">Total</div><div class="tp-booked-col-val">£${parseFloat(b.total_cost||0).toFixed(0)}</div></div>
+      <div class="tp-booked-col"><div class="tp-booked-col-label">Paid</div><div class="tp-booked-col-val" style="color:#2E7D52">£${parseFloat(b.amount_paid||0).toFixed(0)}</div></div>
+      <div class="tp-booked-col"><div class="tp-booked-col-label">To Pay</div><div class="tp-booked-col-val" style="color:${remaining>0?'#C62828':'var(--ink-light)'}">£${remaining.toFixed(0)}</div></div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = `
+    <div class="tp-booked-summary">
+      <div class="tp-booked-sum-item"><div class="tp-booked-sum-label">Total Cost</div><div class="tp-booked-sum-val">£${totalCost.toFixed(0)}</div></div>
+      <div class="tp-booked-sum-item"><div class="tp-booked-sum-label">Paid</div><div class="tp-booked-sum-val" style="color:#2E7D52">£${totalPaid.toFixed(0)}</div></div>
+      <div class="tp-booked-sum-item"><div class="tp-booked-sum-label">To Pay</div><div class="tp-booked-sum-val" style="color:${toPay>0?'#C62828':'var(--ink-light)'}">£${toPay.toFixed(0)}</div></div>
+    </div>
+    ${rows || '<div style="padding:16px 20px;color:var(--ink-light);font-size:0.88rem;">No bookings yet — add your first booking below</div>'}
+    <div style="padding:4px 20px 16px;">
+      <button class="tp-section-add" onclick="openBookedModal()" style="margin-bottom:10px;">+ Add Booking</button>
+    </div>
+    <button class="tp-leave-btn" onclick="addTripToLeave()">📅 Add to Annual Leave Planner</button>`;
+}
+
+async function addTripToLeave() {
+  const t = tpCurrentTrip;
+  if (!t.start_date || !t.end_date) { toastMsg('Add trip dates first', true); return; }
+  const year = parseInt(t.start_date.slice(0,4));
+  const leaveDays = countWeekdays(t.start_date, t.end_date);
+  const who = t.who;
+  const chrisDays = who === 'jen' ? 0 : leaveDays;
+  const jenDays   = who === 'chris' ? 0 : leaveDays;
+
+  // Find the month
+  const month = parseInt(t.start_date.slice(5,7));
+  if (!planningYears.includes(year)) { planningYears.push(year); planningYears.sort((a,b)=>a-b); }
+
+  const maxOrder = planningEntries.filter(e => e.year===year && (e.month||0)===month)
+    .reduce((m,e)=>Math.max(m,e.sort_order||0),0);
+  const row = { year, month, title: t.title, chris_days: chrisDays, jen_days: jenDays, sort_order: maxOrder+1 };
+  try {
+    const saved = await savePlanningRow(row);
+    if (saved) planningEntries.push(saved);
+    toastMsg('Added to Annual Leave planner ✓');
+  } catch(e) { toastMsg('Failed to add to planner', true); }
+}
+
+// ── Todos ──
+function renderTpTodos() {
+  const t = tpCurrentTrip;
+  const items = tpTodos.filter(i => i.trip_id === t.id);
+  const el = document.getElementById('tp-todo-body');
+  if (!items.length) { el.innerHTML = '<div style="padding:16px 20px;color:var(--ink-light);font-size:0.88rem;">No tasks yet</div>'; return; }
+  const whoBg = { both: 'var(--together)', jen: 'var(--jen)', chris: 'var(--chris)' };
+  const whoLabel = { both: 'Both', jen: '✨ Jen', chris: '🌍 Chris' };
+  el.innerHTML = items.map(i => `
+    <div class="tp-todo-item">
+      <div class="tp-todo-check${i.is_done?' done':''}" onclick="toggleTpTodo('${i.id}')">${i.is_done?'✓':''}</div>
+      <div class="tp-todo-label${i.is_done?' done':''}">${i.title}</div>
+      <div class="tp-todo-who" style="background:${whoBg[i.assignee||'both']}">${whoLabel[i.assignee||'both']}</div>
+      <button class="tp-todo-del" onclick="deleteTpItem('${TP.TODOS}','${i.id}',tpTodos)">×</button>
+    </div>`).join('');
+}
+
+async function toggleTpTodo(id) {
+  const item = tpTodos.find(i => i.id === id);
+  if (!item) return;
+  item.is_done = !item.is_done;
+  renderTpTodos();
+  try { await tpSave(TP.TODOS, { id, is_done: item.is_done }); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+// ── Packing ──
+function renderTpPacking() {
+  const t = tpCurrentTrip;
+  const items = tpPacking.filter(i => i.trip_id === t.id);
+  const el = document.getElementById('tp-packing-body');
+  if (!items.length) { el.innerHTML = '<div style="padding:16px 20px;color:var(--ink-light);font-size:0.88rem;">No packing items yet</div>'; return; }
+  const byCategory = {};
+  items.forEach(i => { if (!byCategory[i.category]) byCategory[i.category]=[]; byCategory[i.category].push(i); });
+  el.innerHTML = Object.entries(byCategory).map(([cat, catItems]) => {
+    const packed = catItems.filter(i => i.is_packed).length;
+    return `<div class="tp-pack-cat">
+      <div class="tp-pack-cat-header">
+        <div class="tp-pack-cat-title">${cat}</div>
+        <div class="tp-pack-cat-count">${packed} / ${catItems.length} packed</div>
+      </div>
+      <div class="tp-pack-items">
+        ${catItems.map(i => `<div class="tp-pack-item${i.is_packed?' packed':''}">
+          <input type="checkbox"${i.is_packed?' checked':''} onchange="toggleTpPacking('${i.id}',this.checked)">
+          <label>${i.item}</label>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function toggleTpPacking(id, checked) {
+  const item = tpPacking.find(i => i.id === id);
+  if (!item) return;
+  item.is_packed = checked;
+  renderTpPacking();
+  try { await tpSave(TP.PACKING, { id, is_packed: checked }); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+// ── Weather (static by month) ──
+const TP_WEATHER = {
+  default: [
+    {m:'Jan',icon:'❄',t:'-2°/4°',d:'Cold'},
+    {m:'Feb',icon:'❄',t:'-1°/6°',d:'Cold'},
+    {m:'Mar',icon:'🌤',t:'4°/11°',d:'Cool'},
+    {m:'Apr',icon:'⛅',t:'8°/16°',d:'Mild'},
+    {m:'May',icon:'🌤',t:'12°/20°',d:'Warm'},
+    {m:'Jun',icon:'☀',t:'16°/25°',d:'Warm & sunny'},
+    {m:'Jul',icon:'☀',t:'19°/28°',d:'Hot'},
+    {m:'Aug',icon:'☀',t:'19°/27°',d:'Hot'},
+    {m:'Sep',icon:'🌤',t:'15°/23°',d:'Pleasant'},
+    {m:'Oct',icon:'🌧',t:'10°/17°',d:'Cooler'},
+    {m:'Nov',icon:'🌧',t:'5°/11°',d:'Cool & rainy'},
+    {m:'Dec',icon:'❄',t:'0°/6°',d:'Cold'},
+  ]
+};
+
+function renderTpWeather() {
+  const t = tpCurrentTrip;
+  const el = document.getElementById('tp-weather-body');
+  const weather = TP_WEATHER.default;
+  // Show 4 months around the trip start month
+  const startMonth = t.start_date ? parseInt(t.start_date.slice(5,7)) - 1 : new Date().getMonth();
+  const show = [-1,0,1,2].map(offset => {
+    const idx = (startMonth + offset + 12) % 12;
+    return { ...weather[idx], isTrip: offset === 0 };
+  });
+  el.innerHTML = `<div class="tp-weather-grid">
+    ${show.map(w => `<div class="tp-weather-col${w.isTrip?' active-month':''}">
+      <div class="tp-weather-month">${w.m}${w.isTrip?' ✈':''}</div>
+      <div class="tp-weather-icon">${w.icon}</div>
+      <div class="tp-weather-temp">${w.t}</div>
+      <div class="tp-weather-desc">${w.d}</div>
+    </div>`).join('')}
+  </div>
+  <div style="padding:12px 20px;font-size:0.8rem;color:var(--ink-light);border-top:1px solid var(--sand);">
+    ℹ Typical weather for Europe. Varies significantly by destination — use as a rough guide for packing.
+  </div>`;
+}
+
+// ── Save notes (debounced) ──
+let tpNotesTimer;
+function saveTripNotes() {
+  clearTimeout(tpNotesTimer);
+  tpNotesTimer = setTimeout(async () => {
+    const notes = document.getElementById('tp-notes-area').value;
+    if (!tpCurrentTrip) return;
+    tpCurrentTrip.notes = notes;
+    try { await tpSave(TP.TRIPS, { id: tpCurrentTrip.id, notes }); }
+    catch(e) { /* silent */ }
+  }, 1200);
+}
+
+// ── Generic delete ──
+async function deleteTpItem(table, id, arr) {
+  if (!confirm('Delete this item?')) return;
+  const idx = arr.findIndex(i => i.id === id);
+  if (idx >= 0) arr.splice(idx, 1);
+  // Re-render whichever section
+  if (table === TP.ITIN)     renderTpItinerary();
+  if (table === TP.TODOS)    renderTpTodos();
+  if (table === TP.PACKING)  renderTpPacking();
+  if (table === TP.BOOKED)   { renderTpBooked(); renderTpDetail(); }
+  if (table === TP.RESEARCH) renderTpResearch();
+  try { await tpDelete(table, id); setSyncState('ok','saved'); }
+  catch(e) { toastMsg('Delete failed', true); }
+}
+
+// ── Modals ──
+function openNewTripModal() {
+  tpEditingTripId = null;
+  tpWho = 'together';
+  document.getElementById('tp-trip-modal-title').textContent = 'New Trip';
+  document.getElementById('tp-trip-title').value = '';
+  document.getElementById('tp-trip-start').value = '';
+  document.getElementById('tp-trip-end').value = '';
+  document.getElementById('tp-trip-status').value = 'planning';
+  document.querySelectorAll('.tp-who-btn').forEach(b => { b.className = 'tp-who-btn'; });
+  document.querySelectorAll('.tp-who-btn')[0].classList.add('sel-together');
+  document.getElementById('tp-new-trip-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-trip-title').focus(), 100);
+}
+
+function openEditTripModal() {
+  const t = tpCurrentTrip;
+  tpEditingTripId = t.id;
+  tpWho = t.who || 'together';
+  document.getElementById('tp-trip-modal-title').textContent = 'Edit Trip';
+  document.getElementById('tp-trip-title').value = t.title;
+  document.getElementById('tp-trip-start').value = t.start_date || '';
+  document.getElementById('tp-trip-end').value = t.end_date || '';
+  document.getElementById('tp-trip-status').value = t.status || 'planning';
+  document.querySelectorAll('.tp-who-btn').forEach(b => b.className = 'tp-who-btn');
+  const whoIdx = { together:0, jen:1, chris:2 };
+  const btns = document.querySelectorAll('.tp-who-btn');
+  btns[whoIdx[tpWho]]?.classList.add('sel-' + tpWho);
+  document.getElementById('tp-new-trip-modal').classList.remove('hidden');
+}
+
+function tpSelectWho(btn, who) {
+  tpWho = who;
+  btn.closest('.tp-who-toggle').querySelectorAll('.tp-who-btn').forEach(b => b.className = 'tp-who-btn');
+  btn.classList.add('sel-' + who);
+}
+
+function tpSelectWhoTodo(btn, who) {
+  tpTodoWho = who;
+  btn.closest('.tp-who-toggle').querySelectorAll('.tp-who-btn').forEach(b => b.className = 'tp-who-btn');
+  btn.classList.add('sel-' + who);
+}
+
+async function saveTripModal() {
+  const title = document.getElementById('tp-trip-title').value.trim();
+  if (!title) { toastMsg('Please enter a trip name', true); return; }
+  const start = document.getElementById('tp-trip-start').value || null;
+  const end   = document.getElementById('tp-trip-end').value || null;
+  const status = document.getElementById('tp-trip-status').value;
+  closeTpModal('tp-new-trip-modal');
+  setSyncState('busy','saving…');
+
+  const row = { title, who: tpWho, start_date: start, end_date: end, status,
+    color_index: tpGradient(title), is_archived: false };
+  if (tpEditingTripId) row.id = tpEditingTripId;
+
+  try {
+    const saved = await tpSave(TP.TRIPS, row);
+    if (tpEditingTripId) {
+      const idx = tpTrips.findIndex(t => t.id === tpEditingTripId);
+      if (idx >= 0) tpTrips[idx] = saved || { ...row, id: tpEditingTripId };
+      tpCurrentTrip = tpTrips.find(t => t.id === tpEditingTripId);
+      renderTpDetail();
+    } else {
+      if (saved) tpTrips.push(saved);
+      renderTpDashboard();
+    }
+    setSyncState('ok','saved');
+    toastMsg(tpEditingTripId ? '✓ Trip updated' : '✓ Trip created');
+  } catch(e) { setSyncState('err','save failed'); toastMsg('Save failed: ' + e.message.slice(0,60), true); }
+}
+
+function openItineraryModal() {
+  const t = tpCurrentTrip;
+  document.getElementById('tp-itin-date').value = t.start_date || '';
+  document.getElementById('tp-itin-time').value = '';
+  document.getElementById('tp-itin-title').value = '';
+  document.getElementById('tp-itin-note').value = '';
+  document.getElementById('tp-itin-type').value = 'activity';
+  document.getElementById('tp-itinerary-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-itin-title').focus(), 100);
+}
+
+async function saveItineraryItem() {
+  const date  = document.getElementById('tp-itin-date').value;
+  const title = document.getElementById('tp-itin-title').value.trim();
+  if (!date || !title) { toastMsg('Date and title required', true); return; }
+  const row = {
+    trip_id: tpCurrentTrip.id, trip_date: date,
+    time_of_day: document.getElementById('tp-itin-time').value || null,
+    title, note: document.getElementById('tp-itin-note').value.trim() || null,
+    type: document.getElementById('tp-itin-type').value,
+    sort_order: tpItin.filter(i => i.trip_id===tpCurrentTrip.id).length
+  };
+  closeTpModal('tp-itinerary-modal');
+  try {
+    const saved = await tpSave(TP.ITIN, row);
+    if (saved) tpItin.push(saved);
+    renderTpItinerary(); toastMsg('Item added ✓');
+  } catch(e) { toastMsg('Save failed', true); }
+}
+
+function openResearchModal(cat) {
+  document.getElementById('tp-res-cat').value = cat;
+  document.getElementById('tp-res-name').value = '';
+  document.getElementById('tp-res-note').value = '';
+  document.getElementById('tp-res-url').value = '';
+  document.getElementById('tp-res-cost').value = '0';
+  document.getElementById('tp-research-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-res-name').focus(), 100);
+}
+
+async function saveResearchItem() {
+  const name = document.getElementById('tp-res-name').value.trim();
+  if (!name) { toastMsg('Name required', true); return; }
+  const row = {
+    trip_id: tpCurrentTrip.id,
+    category: document.getElementById('tp-res-cat').value,
+    name, note: document.getElementById('tp-res-note').value.trim() || null,
+    url: document.getElementById('tp-res-url').value.trim() || null,
+    cost_gbp: parseFloat(document.getElementById('tp-res-cost').value) || 0,
+    is_booked: false,
+    sort_order: tpResearch.filter(r => r.trip_id===tpCurrentTrip.id).length
+  };
+  closeTpModal('tp-research-modal');
+  try {
+    const saved = await tpSave(TP.RESEARCH, row);
+    if (saved) tpResearch.push(saved);
+    renderTpResearch(); toastMsg('Added ✓');
+  } catch(e) { toastMsg('Save failed', true); }
+}
+
+function openBookedModal() {
+  document.getElementById('tp-book-name').value = '';
+  document.getElementById('tp-book-ref').value = '';
+  document.getElementById('tp-book-total').value = '0';
+  document.getElementById('tp-book-paid').value = '0';
+  document.getElementById('tp-book-due').value = '';
+  document.getElementById('tp-booked-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-book-name').focus(), 100);
+}
+
+async function saveBookedItem() {
+  const name = document.getElementById('tp-book-name').value.trim();
+  if (!name) { toastMsg('Name required', true); return; }
+  const row = {
+    trip_id: tpCurrentTrip.id, name,
+    reference: document.getElementById('tp-book-ref').value.trim() || null,
+    total_cost: parseFloat(document.getElementById('tp-book-total').value) || 0,
+    amount_paid: parseFloat(document.getElementById('tp-book-paid').value) || 0,
+    due_date: document.getElementById('tp-book-due').value || null,
+    sort_order: tpBooked.filter(b => b.trip_id===tpCurrentTrip.id).length
+  };
+  closeTpModal('tp-booked-modal');
+  try {
+    const saved = await tpSave(TP.BOOKED, row);
+    if (saved) tpBooked.push(saved);
+    renderTpBooked(); renderTpDetail(); toastMsg('Booking added ✓');
+  } catch(e) { toastMsg('Save failed', true); }
+}
+
+function openTodoModal() {
+  tpTodoWho = 'both';
+  document.getElementById('tp-todo-title').value = '';
+  document.querySelectorAll('#tp-todo-modal .tp-who-btn').forEach(b => b.className = 'tp-who-btn');
+  document.querySelector('#tp-todo-modal .tp-who-btn').classList.add('sel-together');
+  document.getElementById('tp-todo-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-todo-title').focus(), 100);
+}
+
+async function saveTodoItem() {
+  const title = document.getElementById('tp-todo-title').value.trim();
+  if (!title) { toastMsg('Task required', true); return; }
+  const row = {
+    trip_id: tpCurrentTrip.id, title, assignee: tpTodoWho, is_done: false,
+    sort_order: tpTodos.filter(i => i.trip_id===tpCurrentTrip.id).length
+  };
+  closeTpModal('tp-todo-modal');
+  try {
+    const saved = await tpSave(TP.TODOS, row);
+    if (saved) tpTodos.push(saved);
+    renderTpTodos(); toastMsg('Task added ✓');
+  } catch(e) { toastMsg('Save failed', true); }
+}
+
+function openPackingModal() {
+  document.getElementById('tp-pack-item').value = '';
+  document.getElementById('tp-packing-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-pack-item').focus(), 100);
+}
+
+async function savePackingItem() {
+  const item = document.getElementById('tp-pack-item').value.trim();
+  if (!item) { toastMsg('Item required', true); return; }
+  const row = {
+    trip_id: tpCurrentTrip.id,
+    category: document.getElementById('tp-pack-cat').value,
+    item, is_packed: false,
+    sort_order: tpPacking.filter(i => i.trip_id===tpCurrentTrip.id).length
+  };
+  closeTpModal('tp-packing-modal');
+  try {
+    const saved = await tpSave(TP.PACKING, row);
+    if (saved) tpPacking.push(saved);
+    renderTpPacking(); toastMsg('Item added ✓');
+  } catch(e) { toastMsg('Save failed', true); }
+}
+
+function closeTpModal(id) {
+  document.getElementById(id).classList.add('hidden');
+}
+
+// Close modals on overlay click / Escape
+document.querySelectorAll('.tp-modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.add('hidden'); });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.tp-modal-overlay:not(.hidden)').forEach(o => o.classList.add('hidden'));
+  if (e.key === 'Enter') {
+    if (!document.getElementById('tp-new-trip-modal').classList.contains('hidden')) saveTripModal();
+    if (!document.getElementById('tp-itinerary-modal').classList.contains('hidden')) saveItineraryItem();
+    if (!document.getElementById('tp-research-modal').classList.contains('hidden')) saveResearchItem();
+    if (!document.getElementById('tp-booked-modal').classList.contains('hidden')) saveBookedItem();
+    if (!document.getElementById('tp-todo-modal').classList.contains('hidden')) saveTodoItem();
+    if (!document.getElementById('tp-packing-modal').classList.contains('hidden')) savePackingItem();
+  }
+});
+
+// ============================================================
 // BOOT
 // ============================================================
 (async () => {
@@ -3787,6 +4993,7 @@ document.addEventListener('keydown', e => {
     renderSuggestions();
   }
   await loadPlanning();
+  await loadTripPlanning();
 })();
 </script>
 </body>
