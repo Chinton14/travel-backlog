@@ -1721,6 +1721,119 @@
   </div>
 </div>
 
+<!-- ===== TRIP PLANNING EDIT MODALS ===== -->
+
+<!-- Edit Itinerary -->
+<div class="tp-modal-overlay hidden" id="tp-edit-itinerary-modal">
+  <div class="tp-modal">
+    <h3>Edit Itinerary Item</h3>
+    <div class="tp-field"><label>Date</label><input type="date" id="tp-edit-itin-date" /></div>
+    <div class="tp-two-col">
+      <div class="tp-field"><label>Time</label><input type="time" id="tp-edit-itin-time" /></div>
+      <div class="tp-field"><label>Type</label>
+        <select id="tp-edit-itin-type">
+          <option value="activity">Activity</option>
+          <option value="food">Food & Drink</option>
+          <option value="transport">Transport</option>
+          <option value="hotel">Hotel</option>
+        </select>
+      </div>
+    </div>
+    <div class="tp-field"><label>Title</label><input type="text" id="tp-edit-itin-title" /></div>
+    <div class="tp-field"><label>Notes</label><input type="text" id="tp-edit-itin-note" /></div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-edit-itinerary-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="saveEditItinerary()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Research -->
+<div class="tp-modal-overlay hidden" id="tp-edit-research-modal">
+  <div class="tp-modal">
+    <h3>Edit Research Item</h3>
+    <div class="tp-field"><label>Category</label>
+      <select id="tp-edit-res-cat">
+        <option value="hotel">🏨 Hotels</option>
+        <option value="flight">✈ Flights</option>
+        <option value="restaurant">🍽 Restaurants</option>
+        <option value="activity">🎭 Activities</option>
+        <option value="transport">🚆 Transport</option>
+        <option value="visa">🛂 Visa & Entry</option>
+        <option value="other">📌 Other</option>
+      </select>
+    </div>
+    <div class="tp-field"><label>Name</label><input type="text" id="tp-edit-res-name" /></div>
+    <div class="tp-field"><label>Notes</label><input type="text" id="tp-edit-res-note" /></div>
+    <div class="tp-field"><label>URL</label><input type="url" id="tp-edit-res-url" /></div>
+    <div class="tp-field"><label>Cost (£)</label><input type="number" id="tp-edit-res-cost" min="0" step="0.01" /></div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-edit-research-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="saveEditResearch()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Booked -->
+<div class="tp-modal-overlay hidden" id="tp-edit-booked-modal">
+  <div class="tp-modal">
+    <h3>Edit Booking</h3>
+    <div class="tp-field"><label>Name</label><input type="text" id="tp-edit-book-name" /></div>
+    <div class="tp-field"><label>Reference</label><input type="text" id="tp-edit-book-ref" /></div>
+    <div class="tp-two-col">
+      <div class="tp-field"><label>Total Cost (£)</label><input type="number" id="tp-edit-book-total" min="0" step="0.01" /></div>
+      <div class="tp-field"><label>Amount Paid (£)</label><input type="number" id="tp-edit-book-paid" min="0" step="0.01" /></div>
+    </div>
+    <div class="tp-field"><label>Balance Due Date</label><input type="date" id="tp-edit-book-due" /></div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-edit-booked-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="saveEditBooked()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Todo -->
+<div class="tp-modal-overlay hidden" id="tp-edit-todo-modal">
+  <div class="tp-modal">
+    <h3>Edit Task</h3>
+    <div class="tp-field"><label>Task</label><input type="text" id="tp-edit-todo-title" /></div>
+    <div class="tp-field"><label>Assign to</label>
+      <div class="tp-who-toggle" id="tp-edit-todo-who-toggle">
+        <button class="tp-who-btn" onclick="tpEditSelectWhoTodo(this,'both')">Both</button>
+        <button class="tp-who-btn" onclick="tpEditSelectWhoTodo(this,'jen')">✨ Jen</button>
+        <button class="tp-who-btn" onclick="tpEditSelectWhoTodo(this,'chris')">🌍 Chris</button>
+      </div>
+    </div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-edit-todo-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="saveEditTodo()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Packing -->
+<div class="tp-modal-overlay hidden" id="tp-edit-packing-modal">
+  <div class="tp-modal">
+    <h3>Edit Packing Item</h3>
+    <div class="tp-field"><label>Category</label>
+      <select id="tp-edit-pack-cat">
+        <option>📄 Documents</option>
+        <option>👔 Clothes</option>
+        <option>💊 Health</option>
+        <option>🔌 Tech & Gadgets</option>
+        <option>🧴 Toiletries</option>
+        <option>💳 Money & Cards</option>
+        <option>📌 Other</option>
+      </select>
+    </div>
+    <div class="tp-field"><label>Item</label><input type="text" id="tp-edit-pack-item" /></div>
+    <div class="tp-modal-actions">
+      <button class="tp-modal-btn tp-modal-btn-secondary" onclick="closeTpModal('tp-edit-packing-modal')">Cancel</button>
+      <button class="tp-modal-btn tp-modal-btn-primary" onclick="saveEditPacking()">Save</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===== PLANNING ENTRY MODAL ===== -->
 <div class="planning-modal-overlay hidden" id="planning-modal">
   <div class="planning-modal">
@@ -4500,6 +4613,7 @@ function renderTpItinerary() {
         </div>
         <div class="tp-item-type ${typeMap[i.type]||'tp-type-activity'}">${typeLabel[i.type]||'Activity'}</div>
         <div class="tp-item-actions">
+          <button class="tp-item-btn" onclick="openEditItineraryModal('${i.id}')">✏</button>
           <button class="tp-item-btn" onclick="deleteTpItem('${TP.ITIN}','${i.id}',tpItin)">×</button>
         </div>
       </div>`).join('');
@@ -4534,7 +4648,7 @@ function renderTpResearch() {
   el.innerHTML = TP_RESEARCH_CATS.map(cat => {
     const catItems = items.filter(r => r.category === cat.key);
     const rows = catItems.length ? catItems.map(r => `
-      <div class="tp-research-item">
+      <div class="tp-research-item" style="grid-template-columns:1fr auto auto auto;">
         <div>
           <div class="tp-research-name">${r.name}</div>
           ${r.note ? `<div class="tp-research-note">${r.note}</div>` : ''}
@@ -4544,6 +4658,10 @@ function renderTpResearch() {
         ${r.is_booked
           ? `<div class="tp-booked-badge">✓ Booked</div>`
           : `<button class="tp-book-btn" onclick="markResearchBooked('${r.id}')">Mark Booked</button>`}
+        <div style="display:flex;gap:4px;margin-left:4px;">
+          <button class="tp-item-btn" onclick="openEditResearchModal('${r.id}')" style="background:var(--sand);border-radius:6px;padding:4px 7px;">✏</button>
+          <button class="tp-item-btn" onclick="deleteTpItem('${TP.RESEARCH}','${r.id}',tpResearch)" style="background:var(--sand);border-radius:6px;padding:4px 7px;">×</button>
+        </div>
       </div>`) .join('')
     : `<div style="padding:12px 20px;font-size:0.84rem;color:var(--ink-light);">No ${cat.label.replace(/[^a-zA-Z ]/g,'')} items yet</div>`;
     return `<div class="tp-section" style="margin-bottom:14px;">
@@ -4577,7 +4695,7 @@ function renderTpBooked() {
   const rows = items.map(b => {
     const remaining = (parseFloat(b.total_cost)||0) - (parseFloat(b.amount_paid)||0);
     const dueStr = b.due_date ? `<div class="tp-booked-due">⚠ Balance due ${tpFmtDate(b.due_date)}</div>` : '';
-    return `<div class="tp-booked-item">
+    return `<div class="tp-booked-item" style="grid-template-columns:1fr auto auto auto auto;">
       <div>
         <div class="tp-booked-name">${b.name}</div>
         ${b.reference ? `<div class="tp-booked-ref">Ref: ${b.reference}</div>` : ''}
@@ -4586,6 +4704,10 @@ function renderTpBooked() {
       <div class="tp-booked-col"><div class="tp-booked-col-label">Total</div><div class="tp-booked-col-val">£${parseFloat(b.total_cost||0).toFixed(0)}</div></div>
       <div class="tp-booked-col"><div class="tp-booked-col-label">Paid</div><div class="tp-booked-col-val" style="color:#2E7D52">£${parseFloat(b.amount_paid||0).toFixed(0)}</div></div>
       <div class="tp-booked-col"><div class="tp-booked-col-label">To Pay</div><div class="tp-booked-col-val" style="color:${remaining>0?'#C62828':'var(--ink-light)'}">£${remaining.toFixed(0)}</div></div>
+      <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
+        <button class="tp-item-btn" onclick="openEditBookedModal('${b.id}')" style="background:var(--sand);border-radius:6px;padding:4px 7px;font-size:0.75rem;">✏</button>
+        <button class="tp-item-btn" onclick="deleteTpItem('${TP.BOOKED}','${b.id}',tpBooked).then(()=>{renderTpDetail();})" style="background:var(--sand);border-radius:6px;padding:4px 7px;font-size:0.75rem;">×</button>
+      </div>
     </div>`;
   }).join('');
 
@@ -4638,6 +4760,7 @@ function renderTpTodos() {
       <div class="tp-todo-check${i.is_done?' done':''}" onclick="toggleTpTodo('${i.id}')">${i.is_done?'✓':''}</div>
       <div class="tp-todo-label${i.is_done?' done':''}">${i.title}</div>
       <div class="tp-todo-who" style="background:${whoBg[i.assignee||'both']}">${whoLabel[i.assignee||'both']}</div>
+      <button class="tp-item-btn" onclick="openEditTodoModal('${i.id}')" style="opacity:0.5;font-size:0.75rem;">✏</button>
       <button class="tp-todo-del" onclick="deleteTpItem('${TP.TODOS}','${i.id}',tpTodos)">×</button>
     </div>`).join('');
 }
@@ -4667,9 +4790,11 @@ function renderTpPacking() {
         <div class="tp-pack-cat-count">${packed} / ${catItems.length} packed</div>
       </div>
       <div class="tp-pack-items">
-        ${catItems.map(i => `<div class="tp-pack-item${i.is_packed?' packed':''}">
+        ${catItems.map(i => `<div class="tp-pack-item${i.is_packed?' packed':''}" style="display:flex;align-items:center;gap:8px;">
           <input type="checkbox"${i.is_packed?' checked':''} onchange="toggleTpPacking('${i.id}',this.checked)">
-          <label>${i.item}</label>
+          <label style="flex:1;">${i.item}</label>
+          <button class="tp-item-btn" onclick="openEditPackingModal('${i.id}')" style="opacity:0;font-size:0.72rem;padding:2px 5px;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0">✏</button>
+          <button class="tp-item-btn" onclick="deleteTpItem('${TP.PACKING}','${i.id}',tpPacking)" style="opacity:0;font-size:0.72rem;padding:2px 5px;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0">×</button>
         </div>`).join('')}
       </div>
     </div>`;
@@ -4979,6 +5104,175 @@ document.addEventListener('keydown', e => {
     if (!document.getElementById('tp-booked-modal').classList.contains('hidden')) saveBookedItem();
     if (!document.getElementById('tp-todo-modal').classList.contains('hidden')) saveTodoItem();
     if (!document.getElementById('tp-packing-modal').classList.contains('hidden')) savePackingItem();
+  }
+});
+
+// ============================================================
+// TRIP PLANNING — EDIT FUNCTIONS
+// ============================================================
+let tpEditingId = null;
+let tpEditTodoWho = 'both';
+
+// ── Edit Itinerary ──
+function openEditItineraryModal(id) {
+  tpEditingId = id;
+  const item = tpItin.find(i => i.id === id);
+  if (!item) return;
+  document.getElementById('tp-edit-itin-date').value  = item.trip_date || '';
+  document.getElementById('tp-edit-itin-time').value  = item.time_of_day || '';
+  document.getElementById('tp-edit-itin-title').value = item.title || '';
+  document.getElementById('tp-edit-itin-note').value  = item.note || '';
+  document.getElementById('tp-edit-itin-type').value  = item.type || 'activity';
+  document.getElementById('tp-edit-itinerary-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-edit-itin-title').focus(), 100);
+}
+
+async function saveEditItinerary() {
+  const id    = tpEditingId;
+  const item  = tpItin.find(i => i.id === id);
+  if (!item) return;
+  const date  = document.getElementById('tp-edit-itin-date').value;
+  const title = document.getElementById('tp-edit-itin-title').value.trim();
+  if (!date || !title) { toastMsg('Date and title required', true); return; }
+  item.trip_date   = date;
+  item.time_of_day = document.getElementById('tp-edit-itin-time').value || null;
+  item.title       = title;
+  item.note        = document.getElementById('tp-edit-itin-note').value.trim() || null;
+  item.type        = document.getElementById('tp-edit-itin-type').value;
+  closeTpModal('tp-edit-itinerary-modal');
+  renderTpItinerary();
+  try { await tpSave(TP.ITIN, item); toastMsg('Updated ✓'); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+// ── Edit Research ──
+function openEditResearchModal(id) {
+  tpEditingId = id;
+  const r = tpResearch.find(r => r.id === id);
+  if (!r) return;
+  document.getElementById('tp-edit-res-cat').value  = r.category || 'hotel';
+  document.getElementById('tp-edit-res-name').value = r.name || '';
+  document.getElementById('tp-edit-res-note').value = r.note || '';
+  document.getElementById('tp-edit-res-url').value  = r.url || '';
+  document.getElementById('tp-edit-res-cost').value = r.cost_gbp || 0;
+  document.getElementById('tp-edit-research-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-edit-res-name').focus(), 100);
+}
+
+async function saveEditResearch() {
+  const id = tpEditingId;
+  const r  = tpResearch.find(r => r.id === id);
+  if (!r) return;
+  const name = document.getElementById('tp-edit-res-name').value.trim();
+  if (!name) { toastMsg('Name required', true); return; }
+  r.category = document.getElementById('tp-edit-res-cat').value;
+  r.name     = name;
+  r.note     = document.getElementById('tp-edit-res-note').value.trim() || null;
+  r.url      = document.getElementById('tp-edit-res-url').value.trim() || null;
+  r.cost_gbp = parseFloat(document.getElementById('tp-edit-res-cost').value) || 0;
+  closeTpModal('tp-edit-research-modal');
+  renderTpResearch();
+  try { await tpSave(TP.RESEARCH, r); toastMsg('Updated ✓'); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+// ── Edit Booked ──
+function openEditBookedModal(id) {
+  tpEditingId = id;
+  const b = tpBooked.find(b => b.id === id);
+  if (!b) return;
+  document.getElementById('tp-edit-book-name').value  = b.name || '';
+  document.getElementById('tp-edit-book-ref').value   = b.reference || '';
+  document.getElementById('tp-edit-book-total').value = b.total_cost || 0;
+  document.getElementById('tp-edit-book-paid').value  = b.amount_paid || 0;
+  document.getElementById('tp-edit-book-due').value   = b.due_date || '';
+  document.getElementById('tp-edit-booked-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-edit-book-name').focus(), 100);
+}
+
+async function saveEditBooked() {
+  const id = tpEditingId;
+  const b  = tpBooked.find(b => b.id === id);
+  if (!b) return;
+  const name = document.getElementById('tp-edit-book-name').value.trim();
+  if (!name) { toastMsg('Name required', true); return; }
+  b.name        = name;
+  b.reference   = document.getElementById('tp-edit-book-ref').value.trim() || null;
+  b.total_cost  = parseFloat(document.getElementById('tp-edit-book-total').value) || 0;
+  b.amount_paid = parseFloat(document.getElementById('tp-edit-book-paid').value) || 0;
+  b.due_date    = document.getElementById('tp-edit-book-due').value || null;
+  closeTpModal('tp-edit-booked-modal');
+  renderTpBooked();
+  renderTpDetail();
+  try { await tpSave(TP.BOOKED, b); toastMsg('Updated ✓'); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+// ── Edit Todo ──
+function openEditTodoModal(id) {
+  tpEditingId = id;
+  const item = tpTodos.find(i => i.id === id);
+  if (!item) return;
+  tpEditTodoWho = item.assignee || 'both';
+  document.getElementById('tp-edit-todo-title').value = item.title || '';
+  const whoIdx = { both:0, jen:1, chris:2 };
+  const btns = document.querySelectorAll('#tp-edit-todo-who-toggle .tp-who-btn');
+  btns.forEach(b => b.className = 'tp-who-btn');
+  btns[whoIdx[tpEditTodoWho]]?.classList.add('sel-' + (tpEditTodoWho === 'both' ? 'together' : tpEditTodoWho));
+  document.getElementById('tp-edit-todo-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-edit-todo-title').focus(), 100);
+}
+
+function tpEditSelectWhoTodo(btn, who) {
+  tpEditTodoWho = who;
+  btn.closest('.tp-who-toggle').querySelectorAll('.tp-who-btn').forEach(b => b.className = 'tp-who-btn');
+  btn.classList.add('sel-' + (who === 'both' ? 'together' : who));
+}
+
+async function saveEditTodo() {
+  const id   = tpEditingId;
+  const item = tpTodos.find(i => i.id === id);
+  if (!item) return;
+  const title = document.getElementById('tp-edit-todo-title').value.trim();
+  if (!title) { toastMsg('Task required', true); return; }
+  item.title    = title;
+  item.assignee = tpEditTodoWho;
+  closeTpModal('tp-edit-todo-modal');
+  renderTpTodos();
+  try { await tpSave(TP.TODOS, item); toastMsg('Updated ✓'); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+// ── Edit Packing ──
+function openEditPackingModal(id) {
+  tpEditingId = id;
+  const item = tpPacking.find(i => i.id === id);
+  if (!item) return;
+  document.getElementById('tp-edit-pack-cat').value  = item.category || '📌 Other';
+  document.getElementById('tp-edit-pack-item').value = item.item || '';
+  document.getElementById('tp-edit-packing-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('tp-edit-pack-item').focus(), 100);
+}
+
+async function saveEditPacking() {
+  const id   = tpEditingId;
+  const item = tpPacking.find(i => i.id === id);
+  if (!item) return;
+  const packItem = document.getElementById('tp-edit-pack-item').value.trim();
+  if (!packItem) { toastMsg('Item required', true); return; }
+  item.category = document.getElementById('tp-edit-pack-cat').value;
+  item.item     = packItem;
+  closeTpModal('tp-edit-packing-modal');
+  renderTpPacking();
+  try { await tpSave(TP.PACKING, item); toastMsg('Updated ✓'); }
+  catch(e) { toastMsg('Save failed', true); }
+}
+
+// Wire up edit modal close on overlay + Enter key
+document.querySelectorAll('.tp-modal-overlay').forEach(overlay => {
+  if (!overlay._hasClickHandler) {
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.add('hidden'); });
+    overlay._hasClickHandler = true;
   }
 });
 
